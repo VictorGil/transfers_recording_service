@@ -1,0 +1,4 @@
+{
+    "bootstrap_servers": "localhost:9092",
+    "schema_registry_URL": "http://localhost:8081"
+}
