@@ -1,4 +1,4 @@
-package net.devaction.kafka.transfersrecordingservice.clientproducer;
+package net.devaction.kafka.transfersrecordingservice.callback;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class ClientProducerCallBack implements Callback{
-    private static final Logger log = LoggerFactory.getLogger(ClientProducerCallBack.class);
+public class SimpleProducerCallBack implements Callback{
+    private static final Logger log = LoggerFactory.getLogger(SimpleProducerCallBack.class);
 
     @Override
     public void onCompletion(final RecordMetadata metadata, final Exception exception){
@@ -23,3 +23,5 @@ public class ClientProducerCallBack implements Callback{
         }        
     }
 }
+
+

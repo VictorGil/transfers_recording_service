@@ -11,9 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+
 import net.devaction.entity.ClientEntity;
 import net.devaction.kafka.avro.Client;
 import net.devaction.kafka.avro.util.ClientConverter;
+import net.devaction.kafka.transfersrecordingservice.callback.SimpleProducerCallBack;
 
 /**
  * @author Víctor Gil
@@ -27,7 +29,7 @@ public class ClientProducer{
     
     private static final String CLIENTS_TOPIC = "clients";
     
-    private final ClientProducerCallBack callBack = new ClientProducerCallBack();
+    private final SimpleProducerCallBack callBack = new SimpleProducerCallBack();
     
     public void start(String bootstrapServers, String schemaRegistryUrl){
         final Properties props = new Properties();
@@ -56,5 +58,4 @@ public class ClientProducer{
         producer.close();
     }
 }
-
 
