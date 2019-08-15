@@ -1,8 +1,5 @@
 package net.devaction.kafka.transfersrecordingservice.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * since August 2019
  */
 public class ConfigValues{
-    private static final Logger log = LoggerFactory.getLogger(ConfigValues.class);
     
     @JsonProperty("bootstrap_servers")
     private String bootstrapServers;
