@@ -12,8 +12,13 @@
         <Root level="info" additivity="false">
             <AppenderRef ref="console" />
         </Root>
-        <Logger name="net.devaction" level="trace" additivity="false">
-            <AppenderRef ref="console"/>
+
+        <Logger name="net.devaction" level="trace" additivity="true">
+        </Logger>
+
+        <Logger name="net.devaction.kafka.transfersrecordingservice.clientconsumer.ClientConsumer" 
+                level="debug" additivity="true">
+
         </Logger>
     </Loggers>
 </Configuration>
