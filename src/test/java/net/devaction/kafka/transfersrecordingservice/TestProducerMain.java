@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 
-import java.math.BigDecimal;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -14,11 +13,10 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
-import net.devaction.entity.AccountBalanceEntity;
+
 import net.devaction.entity.ClientEntity;
-import net.devaction.kafka.avro.AccountBalance;
+
 import net.devaction.kafka.avro.Client;
-import net.devaction.kafka.avro.util.AccountBalanceConverter;
 import net.devaction.kafka.avro.util.ClientConverter;
 
 /**
@@ -39,21 +37,6 @@ public class TestProducerMain{
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
         props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
 
-        /*
-        KafkaProducer<String, AccountBalance> producer = new KafkaProducer<String, AccountBalance>(props);
-        
-        AccountBalanceEntity accountEntity = new AccountBalanceEntity("1", "1001", "1cf66d11b930", 
-                BigDecimal.ZERO);
-        log.info("Going to send/produce/publish the following account data: {}", accountEntity);
-        
-        AccountBalance accountBalance = AccountBalanceConverter.convertToAvro(accountEntity);
-        
-        final ProducerRecord<String, AccountBalance> record = 
-                new ProducerRecord<String, AccountBalance>("account-balances", accountBalance.getAccountId(), 
-                        accountBalance);
-        */
-        
-        
         ClientEntity clientEntity = new ClientEntity();
         clientEntity.generateId();
         clientEntity.setFirstName("James");
@@ -62,7 +45,7 @@ public class TestProducerMain{
         clientEntity.setAddress("Orange Street 22");
         clientEntity.setLevel("bronze");
         
-        log.info("Going to send/produce/publish the following client data: {}", clientEntity);
+        log.info("Going to send/produce/publish the following \"client\" data: {}", clientEntity);
         
         Client client = ClientConverter.convertToAvro(clientEntity);
                 
