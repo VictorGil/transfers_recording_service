@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.devaction.kafka.avro.Transfer;
+import net.devaction.kafka.avro.util.TransferConverter;
 
 /**
  * @author Víctor Gil
@@ -15,7 +16,8 @@ public class SimpleTransferProcessorImpl implements TransferProcessor{
 
     @Override
     public void process(Transfer transfer){
-        log.info("Transfer data processed: {}", transfer);        
+        log.info("Transfer data processed: {}", 
+                TransferConverter.convertToPojo(transfer));        
     }
     
     @Override
