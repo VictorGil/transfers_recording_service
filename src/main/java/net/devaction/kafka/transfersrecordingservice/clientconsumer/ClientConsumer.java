@@ -33,6 +33,7 @@ public class ClientConsumer{
     private Consumer<String, Client> consumer;
     
     private final ClientProcessor processor;
+    
     private final String bootstrapServers;
     private final String schemaRegistryUrl;
     
@@ -86,7 +87,11 @@ public class ClientConsumer{
         log.trace("Going to poll for messages.");
         
         ConsumerRecords<String, Client> records =
-            consumer.poll(Duration.ofMillis(100));
+                consumer.poll(Duration.ofMillis(100));
+        
+        if (!records.isEmpty())
+            log.debug("Number of \"Client\" records polled: {}", records.count());
+                
         for (ConsumerRecord<String, Client> record: records) {
             processor.process(record.value());
         }
