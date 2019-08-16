@@ -13,6 +13,6 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler{
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex){
-        log.error("Uncaught exception thrown by {}: {}", thread, ex, ex);        
+        log.error("Uncaught exception thrown by {} thread: {}", thread, ex, ex);        
     }
 }

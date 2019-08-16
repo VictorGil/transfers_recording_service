@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
-import net.devaction.kafka.avro.Client;
 import net.devaction.kafka.avro.Transfer;
 
 /**
