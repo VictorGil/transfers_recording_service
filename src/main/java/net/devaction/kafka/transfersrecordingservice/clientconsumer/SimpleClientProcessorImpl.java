@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.devaction.kafka.avro.Client;
+import net.devaction.kafka.avro.util.ClientConverter;
 
 /**
  * @author Víctor Gil
@@ -15,7 +16,8 @@ public class SimpleClientProcessorImpl implements ClientProcessor{
 
     @Override
     public void process(Client client){
-        log.info("Client data processed: {}", client);        
+        log.info("Client data processed: {}", 
+                ClientConverter.convertToPojo(client));        
     }
     
     @Override
