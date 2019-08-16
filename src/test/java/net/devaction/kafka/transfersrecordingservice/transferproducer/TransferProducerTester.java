@@ -36,7 +36,7 @@ public class TransferProducerTester{
         transferProducer.start(configValues.getBootstrapServers(), 
                 configValues.getSchemaRegistryUrl());
         
-        TransferEntity transferEntity = new TransferEntity("28a090d01b07", 
+        TransferEntity transferEntity = new TransferEntity("28a090daa001", 
                 new BigDecimal("30.75"));
 
         transferProducer.send(transferEntity);

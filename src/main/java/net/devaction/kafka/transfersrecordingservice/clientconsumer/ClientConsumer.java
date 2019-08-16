@@ -95,7 +95,7 @@ public class ClientConsumer{
         for (ConsumerRecord<String, Client> record: records) {
             processor.process(record.value());
         }
-        // consumer.commitSync();       
+        // We do not need to manually commit // consumer.commitSync();       
     }
     
     private void seekFromBeginningIfRequired() {
