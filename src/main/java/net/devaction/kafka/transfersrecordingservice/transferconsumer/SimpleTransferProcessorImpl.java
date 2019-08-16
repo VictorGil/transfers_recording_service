@@ -17,4 +17,9 @@ public class SimpleTransferProcessorImpl implements TransferProcessor{
     public void process(Transfer transfer){
         log.info("Transfer data processed: {}", transfer);        
     }
+    
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

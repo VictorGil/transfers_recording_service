@@ -1,4 +1,4 @@
-package net.devaction.kafka.transfersrecordingservice.clientconsumer;
+package net.devaction.kafka.transfersrecordingservice.transferconsumer;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -10,7 +10,8 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-
+import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,21 +19,19 @@ import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import net.devaction.kafka.avro.Client;
-
-import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.serialization.StringDeserializer;
+import net.devaction.kafka.avro.Transfer;
 
 /**
  * @author Víctor Gil
  *
  * since August 2019
  */
-public class ClientConsumer{
-    private static final Logger log = LoggerFactory.getLogger(ClientConsumer.class);
-
-    private Consumer<String, Client> consumer;
+public class TransferConsumer{
+    private static final Logger log = LoggerFactory.getLogger(TransferConsumer.class);
     
-    private final ClientProcessor processor;
+    private Consumer<String, Transfer> consumer;
+    
+    private final TransferProcessor processor;
     
     private final String bootstrapServers;
     private final String schemaRegistryUrl;
@@ -40,17 +39,16 @@ public class ClientConsumer{
     private volatile boolean stop;
     private boolean seekFromBeginning;
     
-    private static final String TOPIC = "clients";
+    private static final String TOPIC = "transfers";
     
-    public ClientConsumer(String bootstrapServers, String schemaRegistryUrl, 
-            ClientProcessor processor) {
-        
+    public TransferConsumer(String bootstrapServers, String schemaRegistryUrl,
+            TransferProcessor processor){
         this.bootstrapServers = bootstrapServers;
         this.schemaRegistryUrl = schemaRegistryUrl;
-        this.processor = processor;        
+        this.processor = processor; 
     }
-    
-    public void start(){
+
+    public void start() {
         final Properties props = new Properties();
         
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -79,24 +77,22 @@ public class ClientConsumer{
         }
         
         log.info("Going to close the \"{}\" topic Kafka consumer.", TOPIC);
-        consumer.close();
+        consumer.close();        
     }
-    
     
     void poll() {
         log.trace("Going to poll for messages.");
         
-        ConsumerRecords<String, Client> records =
+        ConsumerRecords<String, Transfer> records =
                 consumer.poll(Duration.ofMillis(100));
         
         if (!records.isEmpty())
-            log.debug("Number of \"Client\" records polled: {}", records.count());
-                
-        for (ConsumerRecord<String, Client> record: records) {
+            log.debug("Number of \"Transfer\" records polled: {}", records.count());
+        
+        for (ConsumerRecord<String, Transfer> record: records) {
             processor.process(record.value());
-        }
-        // consumer.commitSync();       
-    }
+        }               
+    }    
     
     private void seekFromBeginningIfRequired() {
         if (seekFromBeginning)
@@ -122,7 +118,7 @@ public class ClientConsumer{
 
     @Override
     public String toString(){
-        return "ClientConsumer [processor=" + processor + ", bootstrapServers=" + bootstrapServers + ", schemaRegistryUrl="
+        return "TransferConsumer [processor=" + processor + ", bootstrapServers=" + bootstrapServers + ", schemaRegistryUrl="
                 + schemaRegistryUrl + ", stop=" + stop + ", seekFromBeginning=" + seekFromBeginning + "]";
-    }
+    }    
 }

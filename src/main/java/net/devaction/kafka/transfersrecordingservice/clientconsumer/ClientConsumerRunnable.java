@@ -18,8 +18,8 @@ public class ClientConsumerRunnable implements Runnable{
     }
     
     @Override
-    public void run(){
-        log.info("Going to start the client consumer: {}", consumer);
+    public void run() {
+        log.info("Going to start the \"Client\" consumer: {}", consumer);
         consumer.start();
     }
 }

@@ -17,4 +17,9 @@ public class SimpleClientProcessorImpl implements ClientProcessor{
     public void process(Client client){
         log.info("Client data processed: {}", client);        
     }
+    
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

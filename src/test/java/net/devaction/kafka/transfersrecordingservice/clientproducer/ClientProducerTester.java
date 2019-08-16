@@ -48,7 +48,7 @@ public class ClientProducerTester{
         
         log.info("Sleeping while the message is sent");
         try{
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException ex){
             log.error(ex.toString(), ex);
         }
