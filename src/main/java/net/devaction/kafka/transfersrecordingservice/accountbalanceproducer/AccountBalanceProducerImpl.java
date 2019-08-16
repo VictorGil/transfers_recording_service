@@ -59,6 +59,7 @@ public class AccountBalanceProducerImpl implements AccountBalanceProducer{
     
     @Override
     public void stop(){
-        producer.close();
+        if (producer != null)
+            producer.close();
     }
 }
