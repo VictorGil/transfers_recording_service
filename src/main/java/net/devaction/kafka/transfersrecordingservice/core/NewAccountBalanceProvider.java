@@ -22,6 +22,7 @@ public class NewAccountBalanceProvider{
                 currentBalanceAndVersion, transferEntity.getId(), 
                 transferEntity.getAmount());
     }
+    
     public AccountBalanceEntity provide(String accountId, String clientId, 
             BalanceAndVersion currentBalanceAndVersion, String transferId,  
             BigDecimal transferAmount){
