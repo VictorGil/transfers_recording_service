@@ -2,6 +2,7 @@ package net.devaction.kafka.transfersrecordingservice.accountbalanceproducer;
 
 import java.util.Collections;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serde;
@@ -24,6 +25,8 @@ import net.devaction.entity.AccountBalanceEntity;
 import net.devaction.kafka.avro.AccountBalance;
 import net.devaction.kafka.avro.util.AccountBalanceConverter;
 import net.devaction.kafka.streams.ExceptionHandler;
+
+import org.apache.kafka.streams.KafkaStreams.State;
 
 /**
  * @author Víctor Gil
@@ -70,7 +73,15 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
         streams = new KafkaStreams(builder.build(), streamsConfigProperties);
         streams.setUncaughtExceptionHandler(new ExceptionHandler());
         streams.start();       
-                
+
+        while (streams.state() != State.RUNNING) {
+            try{
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException ex){
+                log.error("Interrupted while waiting for the \"Streams\" to start.");
+                Thread.currentThread().interrupt();
+            }
+        } 
         store = streams.store(clientsKTable.queryableStoreName(), 
                 QueryableStoreTypes.<String,AccountBalance>keyValueStore());                
     }
@@ -80,8 +91,10 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
 
         AccountBalance accountBalance = store.get(accountId);
         
-        if (accountBalance == null)
+        if (accountBalance == null) {
+            log.error("The account with id {} has not been set up", accountId);
             return null;
+        }
         
         return AccountBalanceConverter.convertToPojo(accountBalance);
     }
