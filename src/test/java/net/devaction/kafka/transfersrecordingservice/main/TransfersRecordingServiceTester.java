@@ -36,8 +36,8 @@ public class TransfersRecordingServiceTester{
         readConfigValues();
         
         startABproducer();
-        // sendAccountBalances(); 
-        sendAccountBalances2(); 
+        sendAccountBalances(); 
+        // sendAccountBalances2(); 
         stopABproducer();
     }
     
@@ -45,8 +45,8 @@ public class TransfersRecordingServiceTester{
         readConfigValues();        
        
         startTransferProducer();
-        // sendTransfers();
-        sendTransfers2();
+        sendTransfers();
+        // sendTransfers2();
         stopTransferProducer();    
     }
     
@@ -79,11 +79,11 @@ public class TransfersRecordingServiceTester{
 
     private void sendAccountBalances2() {
         AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
-                "28a090daa003", "334490daa003");
+                "28a090daa005", "334490daa005");
         abProducer.send(abEntity1);
         
         AccountBalanceEntity abEntity2 = new AccountBalanceEntity(
-                "28a090daa004", "334490daa004");
+                "28a090daa006", "334490daa006");
         abProducer.send(abEntity2);
         
         sleep(500);
@@ -108,7 +108,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("20"));
         transferProducer.send(transferEntity2);
         
-        sleep(1000);
+        // sleep(1000);        
         
         TransferEntity transferEntity3 = new TransferEntity("28a090daa001", 
                 new BigDecimal("5"));
@@ -118,7 +118,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("-51.83"));
         transferProducer.send(transferEntity4);
         
-        sleep(1000);
+        // sleep(1000);
         
         TransferEntity transferEntity5 = new TransferEntity("28a090daa001", 
                 new BigDecimal("-7.83"));
@@ -128,7 +128,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("100"));
         transferProducer.send(transferEntity6);
         
-        sleep(1000);
+        // sleep(1000);
         
         TransferEntity transferEntity7 = new TransferEntity("28a090daa001", 
                 new BigDecimal("11.00005"));
@@ -138,37 +138,37 @@ public class TransfersRecordingServiceTester{
     }
     
     private void sendTransfers2() {
-        TransferEntity transferEntity1 = new TransferEntity("28a090daa003", 
+        TransferEntity transferEntity1 = new TransferEntity("28a090daa005", 
                 new BigDecimal("30.75"));
         transferProducer.send(transferEntity1);
         
-        TransferEntity transferEntity2 = new TransferEntity("28a090daa004", 
+        TransferEntity transferEntity2 = new TransferEntity("28a090daa006", 
                 new BigDecimal("20"));
         transferProducer.send(transferEntity2);
         
         sleep(1000);
         
-        TransferEntity transferEntity3 = new TransferEntity("28a090daa003", 
+        TransferEntity transferEntity3 = new TransferEntity("28a090daa005", 
                 new BigDecimal("5"));
         transferProducer.send(transferEntity3);
 
-        TransferEntity transferEntity4 = new TransferEntity("28a090daa004", 
+        TransferEntity transferEntity4 = new TransferEntity("28a090daa006", 
                 new BigDecimal("-51.83"));
         transferProducer.send(transferEntity4);
         
         sleep(1000);
         
-        TransferEntity transferEntity5 = new TransferEntity("28a090daa003", 
+        TransferEntity transferEntity5 = new TransferEntity("28a090daa005", 
                 new BigDecimal("-7.83"));
         transferProducer.send(transferEntity5);
         
-        TransferEntity transferEntity6 = new TransferEntity("28a090daa004", 
+        TransferEntity transferEntity6 = new TransferEntity("28a090daa006", 
                 new BigDecimal("100"));
         transferProducer.send(transferEntity6);
         
         sleep(1000);
         
-        TransferEntity transferEntity7 = new TransferEntity("28a090daa003", 
+        TransferEntity transferEntity7 = new TransferEntity("28a090daa005", 
                 new BigDecimal("11.00005"));
         transferProducer.send(transferEntity7);
         

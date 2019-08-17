@@ -51,7 +51,8 @@ public class TransferProducer{
         Transfer transfer = TransferConverter.convertToAvro(transferEntity);
         
         final ProducerRecord<String, Transfer> record = 
-                new ProducerRecord<String, Transfer>(TRANSFERS_TOPIC, transfer.getId(), 
+                // Please note that the key must be the account id and not the transfer id 
+                new ProducerRecord<String, Transfer>(TRANSFERS_TOPIC, transfer.getAccountId(), 
                         transfer);
         producer.send(record, callBack);        
     }
