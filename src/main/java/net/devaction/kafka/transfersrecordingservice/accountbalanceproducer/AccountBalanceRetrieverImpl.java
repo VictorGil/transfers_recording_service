@@ -63,7 +63,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
 
         StreamsBuilder builder = new StreamsBuilder(); 
         
-        KTable<String,AccountBalance> clientsKTable = builder.table(
+        KTable<String,AccountBalance> accountBalancesKTable = builder.table(
                 "account-balances", // The topic name
                 Materialized.<String,AccountBalance>as(clientsStoreSupplier)
                         .withKeySerde(stringSerde)
@@ -82,7 +82,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
                 Thread.currentThread().interrupt();
             }
         } 
-        store = streams.store(clientsKTable.queryableStoreName(), 
+        store = streams.store(accountBalancesKTable.queryableStoreName(), 
                 QueryableStoreTypes.<String,AccountBalance>keyValueStore());                
     }
     
