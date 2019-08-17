@@ -81,7 +81,8 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
                 log.error("Interrupted while waiting for the \"Streams\" to start.");
                 Thread.currentThread().interrupt();
             }
-        } 
+        }
+        
         store = streams.store(accountBalancesKTable.queryableStoreName(), 
                 QueryableStoreTypes.<String,AccountBalance>keyValueStore());                
     }
