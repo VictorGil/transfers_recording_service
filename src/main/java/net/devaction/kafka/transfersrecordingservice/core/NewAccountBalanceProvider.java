@@ -39,6 +39,7 @@ public class NewAccountBalanceProvider{
         return entity;
     }
     
+    // This method contains the business logic
     BalanceAndVersion provideNew(BalanceAndVersion current, BigDecimal transferamount) {
         // Note: so far we are assuming that negative balances are OK
         BigDecimal newBalance = current.getBalance().add(transferamount);
