@@ -21,7 +21,8 @@ public class TransfersRecordingServiceRunnable implements Runnable{
     @Override
     public void run(){
         log.info("Going to start the {}", 
-                TransfersRecordingService.class.getSimpleName());
+                service.getClass().getSimpleName());
+        
         service.start();
     }
 }

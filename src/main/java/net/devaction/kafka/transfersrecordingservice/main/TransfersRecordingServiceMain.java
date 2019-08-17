@@ -8,6 +8,8 @@ import sun.misc.SignalHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.devaction.kafka.transfersrecordingservice.joinstreams.TransfersRecordingServiceJoinStreams;
+
 /**
  * @author Víctor Gil
  *
@@ -18,16 +20,25 @@ public class TransfersRecordingServiceMain implements SignalHandler {
 
     private static final String WINCH_SIGNAL = "WINCH";
     
-    private TransfersRecordingService service;
-    
+    private TransfersRecordingService service;    
+   
     public static void main(String[] args) {
-        new TransfersRecordingServiceMain().run();
+        Implementation implementation = Implementation.POLLING;
+        if (args.length > 0 && args[0].equalsIgnoreCase("join")) {
+            implementation = Implementation.JOIN;
+        }
+        
+        new TransfersRecordingServiceMain().run(implementation);
     }
     
-    private void run() {
+    private void run(Implementation implementation) {
         registerThisAsOsSignalHandler();
         
-        service = new TransfersRecordingService();
+        if (implementation == Implementation.POLLING)
+            service = new TransfersRecordingServicePolling();
+        else
+            service = new TransfersRecordingServiceJoinStreams();
+        
         
         TransfersRecordingServiceRunnable runnable = 
                 new TransfersRecordingServiceRunnable(service);
@@ -44,7 +55,7 @@ public class TransfersRecordingServiceMain implements SignalHandler {
             Thread.currentThread().interrupt();
         }
         
-        log.info("Exiting");      
+        log.info("Exiting main thread.");      
     }
 
     @Override
@@ -65,3 +76,5 @@ public class TransfersRecordingServiceMain implements SignalHandler {
         }        
     }    
 }
+
+enum Implementation{POLLING, JOIN}
