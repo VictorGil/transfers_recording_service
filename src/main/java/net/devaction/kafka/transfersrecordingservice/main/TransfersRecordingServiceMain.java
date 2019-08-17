@@ -1,6 +1,9 @@
 package net.devaction.kafka.transfersrecordingservice.main;
 
-import java.util.concurrent.TimeUnit;
+// We are aware that this class is not part of the Java API
+// but we need it
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,33 +13,55 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class TransfersRecordingServiceMain{
+public class TransfersRecordingServiceMain implements SignalHandler {
     private static final Logger log = LoggerFactory.getLogger(TransfersRecordingServiceMain.class);
+
+    private static final String WINCH_SIGNAL = "WINCH";
+    
+    private TransfersRecordingService service;
     
     public static void main(String[] args) {
         new TransfersRecordingServiceMain().run();
     }
     
-    private void run() {        
-        TransfersRecordingService service = new TransfersRecordingService();
+    private void run() {
+        registerThisAsOsSignalHandler();
+        
+        service = new TransfersRecordingService();
         
         TransfersRecordingServiceRunnable runnable = 
                 new TransfersRecordingServiceRunnable(service);
         
-        Thread thread = new Thread(runnable);
-        thread.setName("polling-thread");
+        Thread pollingThread = new Thread(runnable);
+        pollingThread.setName("polling-thread");
         
-        thread.start();
+        pollingThread.start();        
         
-        log.info("Sleeping for 5 minutes");
         try{
-            TimeUnit.MINUTES.sleep(5);
+            pollingThread.join();
         } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+            log.error("Interrupted while waiting for the \"polling\" thread to finish", ex);
             Thread.currentThread().interrupt();
         }
         
-        service.stop();        
+        log.info("Exiting");      
     }
-}
 
+    @Override
+    public void handle(Signal signal){
+        log.info("We have received the signal to tell us to stop: {}", signal.getName());
+        service.stop();
+    }
+    
+    private void registerThisAsOsSignalHandler() {
+        log.debug("Going to register this object to handle the {} signal", WINCH_SIGNAL);
+        try{
+            Signal.handle(new Signal(WINCH_SIGNAL), this);
+        } catch(Exception ex){
+            // Most likely this is a signal that's not supported on this
+            // platform or with the JVM as it is currently configured
+            log.error("FATAL: The signal is not supported: {}, exiting", WINCH_SIGNAL, ex);
+            System.exit(1);
+        }        
+    }    
+}

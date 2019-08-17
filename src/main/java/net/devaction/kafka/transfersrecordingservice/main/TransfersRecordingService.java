@@ -67,8 +67,21 @@ public class TransfersRecordingService{
     public void stop() {
         log.info("We have been told to stop.");
         
-        if (transferConsumer != null)
+        if (transferConsumer != null) {
+            log.info("Going to stop the \"Transfer\" consumer");
             transferConsumer.stop();
+        }
+        
+        if (abProducer != null) {
+            log.info("Going to stop the \"AccountBalance\" producer");
+            abProducer.stop();
+        }
+        
+        if (abRetriever != null) {
+            log.info("Going to stop the \"AccountBalance\" retriever "
+                    + "(and the local queryable data store)");
+            abRetriever.stop();
+        }
         
         if (pollingThread != null) {
             try{
@@ -78,11 +91,5 @@ public class TransfersRecordingService{
                 Thread.currentThread().interrupt();
             }
         }
-        
-        if (abProducer != null)
-            abProducer.stop();
-        
-        if (abRetriever != null)
-            abRetriever.stop();
     }
 }
