@@ -22,9 +22,7 @@ public class TransferProducerTester{
         new TransferProducerTester().run();
     }
     
-    private void run() {
-        TransferProducer transferProducer = new TransferProducer();
-        
+    private void run() {        
         ConfigValues configValues;
         try{
             configValues = new ConfigReader().read();
@@ -33,6 +31,7 @@ public class TransferProducerTester{
             return;
         }
         
+        TransferProducer transferProducer = new TransferProducer();
         transferProducer.start(configValues.getBootstrapServers(), 
                 configValues.getSchemaRegistryUrl());
         

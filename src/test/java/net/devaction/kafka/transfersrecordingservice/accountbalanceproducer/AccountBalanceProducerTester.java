@@ -22,9 +22,7 @@ public class AccountBalanceProducerTester{
         new AccountBalanceProducerTester().run();
     }
     
-    private void run() {
-        AccountBalanceProducer producer = new AccountBalanceProducerImpl();
-        
+    private void run() {        
         ConfigValues configValues;
         try{
             configValues = new ConfigReader().read();
@@ -33,6 +31,7 @@ public class AccountBalanceProducerTester{
             return;
         }
         
+        AccountBalanceProducer producer = new AccountBalanceProducerImpl();
         producer.start(configValues.getBootstrapServers(), 
                 configValues.getSchemaRegistryUrl());
         

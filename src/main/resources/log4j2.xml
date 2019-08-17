@@ -3,9 +3,9 @@
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <!--PatternLayout
-                pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" /-->
+                    pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" /-->
             <PatternLayout
-                pattern="[%level] %d{HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+                    pattern="[%level] %d{HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
         </Console>
     </Appenders>
     <Loggers>
@@ -13,12 +13,12 @@
             <AppenderRef ref="console" />
         </Root>
 
-        <Logger name="net.devaction" level="trace" additivity="true">
-        </Logger>
+        <Logger name="net.devaction" level="trace" additivity="true"/>
 
         <Logger name="net.devaction.kafka.transfersrecordingservice.clientconsumer.ClientConsumer" 
-                level="debug" additivity="true">
+                level="debug" additivity="true"/>
 
-        </Logger>
+        <Logger name="net.devaction.kafka.transfersrecordingservice.transferconsumer.TransferConsumer" 
+                level="debug" additivity="true"/>
     </Loggers>
 </Configuration>
