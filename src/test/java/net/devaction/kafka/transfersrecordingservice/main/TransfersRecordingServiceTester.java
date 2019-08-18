@@ -45,8 +45,10 @@ public class TransfersRecordingServiceTester{
         readConfigValues();        
        
         startTransferProducer();
+        
         sendTransfers();
         // sendTransfers2();
+        
         stopTransferProducer();    
     }
     
@@ -108,7 +110,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("20"));
         transferProducer.send(transferEntity2);
         
-        // sleep(1000);        
+        sleep(200);        
         
         TransferEntity transferEntity3 = new TransferEntity("28a090daa001", 
                 new BigDecimal("5"));
@@ -118,7 +120,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("-51.83"));
         transferProducer.send(transferEntity4);
         
-        // sleep(1000);
+        sleep(200);
         
         TransferEntity transferEntity5 = new TransferEntity("28a090daa001", 
                 new BigDecimal("-7.83"));
@@ -128,13 +130,13 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("100"));
         transferProducer.send(transferEntity6);
         
-        // sleep(1000);
+        sleep(200);
         
         TransferEntity transferEntity7 = new TransferEntity("28a090daa001", 
                 new BigDecimal("11.00005"));
         transferProducer.send(transferEntity7);
         
-        sleep(500);
+        sleep(100);
     }
     
     private void sendTransfers2() {
