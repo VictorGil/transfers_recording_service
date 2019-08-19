@@ -40,9 +40,9 @@ public class NewAccountBalanceProvider{
     }
     
     // This method contains the business logic
-    BalanceAndVersion provideNew(BalanceAndVersion current, BigDecimal transferamount) {
+    BalanceAndVersion provideNew(BalanceAndVersion current, BigDecimal transferAmount) {
         // Note: so far we are assuming that negative balances are OK
-        BigDecimal newBalance = current.getBalance().add(transferamount);
+        BigDecimal newBalance = current.getBalance().add(transferAmount);
         long newVersion = current.getVersion() + 1;
         
         return new BalanceAndVersion(newBalance, newVersion);
