@@ -69,7 +69,7 @@ public class TransfersRecordingServiceJoinStreams
         final KTable<String,AccountBalance> accountBalancesKTable = 
                 createInputKTable(stringSerde, accountBalanceSerde, builder);
         
-        final KStream<String, AccountBalance> newABstream = transfersKStream.leftJoin(
+        final KStream<String, AccountBalance> newABstream = transfersKStream.join(
                 accountBalancesKTable, new TransferAndAccountBalanceJoiner());
         
         newABstream.to(ACCOUNT_BALANCES_TOPIC, Produced.with(stringSerde, accountBalanceSerde));
