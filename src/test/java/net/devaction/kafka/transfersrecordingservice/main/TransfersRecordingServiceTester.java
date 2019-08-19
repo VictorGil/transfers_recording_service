@@ -28,8 +28,20 @@ public class TransfersRecordingServiceTester{
     TransferProducer transferProducer;
     
     public static void main(String[] args) {
-        // new TransfersRecordingServiceTester().initializeAccounts();
-        new TransfersRecordingServiceTester().run();
+        Action action = Action.SEND_TRANSFERS;
+        
+        if (args.length > 0 && args[0].equalsIgnoreCase(Action.INITIALIZE.name()))
+            action = Action.INITIALIZE;
+        
+        new TransfersRecordingServiceTester().run(action);
+    }
+    
+    private void run(Action action) {
+        if (action == Action.INITIALIZE)
+            initializeAccounts();
+        
+        if (action == Action.SEND_TRANSFERS)
+            sendTransfers();
     }
     
     private void initializeAccounts() {
@@ -41,12 +53,12 @@ public class TransfersRecordingServiceTester{
         stopABproducer();
     }
     
-    private void run() {
+    private void sendTransfers() {
         readConfigValues();        
        
         startTransferProducer();
         
-        sendTransfers();
+        sendTransfers1();
         // sendTransfers2();
         
         stopTransferProducer();    
@@ -101,7 +113,7 @@ public class TransfersRecordingServiceTester{
                 configValues.getSchemaRegistryUrl());
     }
     
-    private void sendTransfers() {
+    private void sendTransfers1() {
         TransferEntity transferEntity1 = new TransferEntity("28a090daa001", 
                 new BigDecimal("30.75"));
         transferProducer.send(transferEntity1);
@@ -110,7 +122,7 @@ public class TransfersRecordingServiceTester{
                 new BigDecimal("20"));
         transferProducer.send(transferEntity2);
         
-        sleep(200);        
+        sleep(300);        
         
         TransferEntity transferEntity3 = new TransferEntity("28a090daa001", 
                 new BigDecimal("5"));
@@ -190,3 +202,4 @@ public class TransfersRecordingServiceTester{
     }
 }
 
+enum Action{INITIALIZE, SEND_TRANSFERS}
