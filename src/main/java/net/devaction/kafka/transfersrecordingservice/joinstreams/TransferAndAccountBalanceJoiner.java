@@ -42,7 +42,4 @@ public class TransferAndAccountBalanceJoiner implements
         
         return AccountBalanceConverter.convertToAvro(newABentity);
     }
-
 }
-
-
