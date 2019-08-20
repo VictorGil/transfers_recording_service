@@ -40,6 +40,8 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
     
     private KafkaStreams streams;
 
+    private static final String ACCOUNT_BALANCES_TOPIC = "account-balances"; 
+    
     @Override
     public void start(String bootstrapServers, String schemaRegistryUrl) {
         
@@ -64,7 +66,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
         StreamsBuilder builder = new StreamsBuilder(); 
         
         KTable<String,AccountBalance> accountBalancesKTable = builder.table(
-                "account-balances", // The topic name
+                ACCOUNT_BALANCES_TOPIC,
                 Materialized.<String,AccountBalance>as(clientsStoreSupplier)
                         .withKeySerde(stringSerde)
                         .withValueSerde(accountBalanceSerde)
