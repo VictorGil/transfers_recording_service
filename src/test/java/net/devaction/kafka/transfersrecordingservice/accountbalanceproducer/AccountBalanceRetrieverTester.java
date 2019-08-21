@@ -8,11 +8,6 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-/**
- * @author Víctor Gil
- *
- * since August 2019
- */
 public class AccountBalanceRetrieverTester{
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceRetrieverTester.class);
 
