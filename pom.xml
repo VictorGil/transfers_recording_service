@@ -4,7 +4,7 @@
 
     <groupId>net.devaction.kafka</groupId>
     <artifactId>transfers-recording-service</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <url>https://devaction.net</url>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>net.devaction.kafka</groupId>
             <artifactId>transfers-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
