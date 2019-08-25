@@ -25,7 +25,7 @@ public class TransfersRecordingServiceMain implements SignalHandler {
     public static void main(String[] args) {
         Implementation implementation = Implementation.POLLING;
         
-        if (args.length > 0 && args[0].equalsIgnoreCase("join")) {
+        if (args.length > 0 && args[0].equalsIgnoreCase(Implementation.JOIN.name())) {
             implementation = Implementation.JOIN;
         }
         
