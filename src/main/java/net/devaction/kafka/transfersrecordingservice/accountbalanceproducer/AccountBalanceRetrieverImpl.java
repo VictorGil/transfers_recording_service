@@ -50,7 +50,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
         streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         streamsConfigProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         
-        KeyValueBytesStoreSupplier clientsStoreSupplier = 
+        KeyValueBytesStoreSupplier accountBalanceStoreSupplier = 
                 Stores.inMemoryKeyValueStore("account-balance-store");
         
         final Serde<String> stringSerde = Serdes.String();
@@ -67,7 +67,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
         
         KTable<String,AccountBalance> accountBalancesKTable = builder.table(
                 ACCOUNT_BALANCES_TOPIC,
-                Materialized.<String,AccountBalance>as(clientsStoreSupplier)
+                Materialized.<String,AccountBalance>as(accountBalanceStoreSupplier)
                         .withKeySerde(stringSerde)
                         .withValueSerde(accountBalanceSerde)
                         .withCachingDisabled());
