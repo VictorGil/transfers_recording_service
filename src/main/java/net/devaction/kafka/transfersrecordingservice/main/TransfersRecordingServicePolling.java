@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceProducer;
 import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceProducerImpl;
-import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceRetriever;
-import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceRetrieverImpl;
+import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.AccountBalanceRetriever;
+import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.AccountBalanceRetrieverImpl;
 import net.devaction.kafka.transfersrecordingservice.config.ConfigReader;
 import net.devaction.kafka.transfersrecordingservice.config.ConfigValues;
 import net.devaction.kafka.transfersrecordingservice.core.NewAccountBalanceProvider;

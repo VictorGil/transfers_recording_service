@@ -1,4 +1,4 @@
-package net.devaction.kafka.transfersrecordingservice.accountbalanceproducer;
+package net.devaction.kafka.transfersrecordingservice.accountbalanceretriever;
 
 import net.devaction.entity.AccountBalanceEntity;
 

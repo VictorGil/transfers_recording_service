@@ -8,7 +8,7 @@ import net.devaction.entity.TransferEntity;
 import net.devaction.kafka.avro.Transfer;
 import net.devaction.kafka.avro.util.TransferConverter;
 import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceProducer;
-import net.devaction.kafka.transfersrecordingservice.accountbalanceproducer.AccountBalanceRetriever;
+import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.AccountBalanceRetriever;
 import net.devaction.kafka.transfersrecordingservice.core.NewAccountBalanceProvider;
 
 /**

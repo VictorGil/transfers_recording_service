@@ -3,6 +3,9 @@ package net.devaction.kafka.transfersrecordingservice.accountbalanceproducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.AccountBalanceRetriever;
+import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.AccountBalanceRetrieverImpl;
+
 /**
  * @author Víctor Gil
  *
