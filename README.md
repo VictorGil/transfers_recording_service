@@ -3,7 +3,7 @@
 This is an example/PoC of how to use Kafka in order to implement event-driven microservices.  
   
 The source code of the entities (regular POJOs) and Avro classes used by this service
-are on [transfers_api](https://github.com/VictorGil/transfers_api/).  
+are in the [transfers_api](https://github.com/VictorGil/transfers_api/) source code repository.  
   
 ## Requirements
   
