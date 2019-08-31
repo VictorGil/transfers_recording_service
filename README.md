@@ -6,13 +6,15 @@ The source code of the entities (regular POJOs) and Avro classes used by this se
 are in the [transfers_api](https://github.com/VictorGil/transfers_api/) source code repository.  
   
 ## Requirements
-  
  - Maven 3  
  - Java 12  
  - Confluent Platform (which includes Kafka)  
-
-## More information on
   
+## Other related repositories
+ - [transfers_websockets_service](https://github.com/VictorGil/transfers_websockets_service)
+ - [transfers_frontend](https://github.com/VictorGil/transfers_frontend/)   
+  
+## More information on
  - [devaction.net](https://www.devaction.net/2019/08/event-driven-microservices.html)
  - [YouTube](https://youtu.be/w-Vy6_0buYo)
  - [dev.to](https://dev.to/victorgil/using-apache-kafka-to-implement-event-driven-microservices-af2)
