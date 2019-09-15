@@ -28,7 +28,7 @@
         <dependency>
             <groupId>net.devaction.kafka</groupId>
             <artifactId>transfers-api</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
