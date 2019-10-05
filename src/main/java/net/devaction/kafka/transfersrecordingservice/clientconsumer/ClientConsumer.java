@@ -102,6 +102,7 @@ public class ClientConsumer{
         if (seekFromBeginning)
             seekFromBeginning();
     }
+    
     private void seekFromBeginning() {
         while (consumer.assignment().isEmpty()){
             log.trace("Going to perform a dummy poll");

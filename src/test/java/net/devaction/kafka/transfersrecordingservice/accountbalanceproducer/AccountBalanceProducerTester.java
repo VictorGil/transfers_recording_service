@@ -1,5 +1,6 @@
 package net.devaction.kafka.transfersrecordingservice.accountbalanceproducer;
 
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -35,8 +36,7 @@ public class AccountBalanceProducerTester{
         producer.start(configValues.getBootstrapServers(), 
                 configValues.getSchemaRegistryUrl());
         
-        AccountBalanceEntity abEntity = new AccountBalanceEntity(
-                "28a090daa001", "334490daa001");
+        AccountBalanceEntity abEntity = createABentity();
         
         producer.send(abEntity);
         log.info("Sleeping while the message is sent");
@@ -47,5 +47,17 @@ public class AccountBalanceProducerTester{
         }
         
         producer.stop();        
+    }
+    
+    private AccountBalanceEntity createABentity() {
+        AccountBalanceEntity abEntity = new AccountBalanceEntity(
+                "28a090daa002", "334490daa002", "test-transfer-04", new BigDecimal("140"), 4L);
+        return abEntity;
+    }
+    
+    private AccountBalanceEntity createInitialABentity() {
+        AccountBalanceEntity abEntity = new AccountBalanceEntity(
+                "28a090daa001", "334490daa001");
+        return abEntity;
     }
 }
