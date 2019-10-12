@@ -51,9 +51,9 @@ public class AccountBalanceProducerTester {
 
     private AccountBalanceEntity createABentity() {
         AccountBalanceEntity abEntity = new AccountBalanceEntity(
-             // id              clientId        transferId          balance                version
-             //   "28a090daa002", "334490daa002", "test-transfer-07", new BigDecimal("170"), 7L);
-             //   "28a090daa001", "334490daa001", "test-transfer-01", new BigDecimal("1001"), 1L);
+                // id              clientId        transferId          balance                version
+                // "28a090daa002", "334490daa002", "test-transfer-07", new BigDecimal("170"), 7L);
+                // "28a090daa001", "334490daa001", "test-transfer-01", new BigDecimal("1001"), 1L);
                 "28a090daa002", "334490daa002", "test-transfer-11", new BigDecimal("1011"), 11L);
         return abEntity;
     }
