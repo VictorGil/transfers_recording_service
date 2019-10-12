@@ -24,9 +24,9 @@ public class TransfersRecordingServicePolling implements TransfersRecordingServi
     private AccountBalanceProducer abProducer;
     private AccountBalanceRetriever abRetriever;
     private TransferConsumer transferConsumer;
-    
+
     private Thread pollingThread;
-    
+
     @Override
     public void start() {
         ConfigValues configValues;
@@ -37,54 +37,54 @@ public class TransfersRecordingServicePolling implements TransfersRecordingServi
             log.error("Unable to read the configuration values, exiting");
             return;
         }
-        
+
         final String bootstrapServers = configValues.getBootstrapServers();
         final String schemaRegistryUrl = configValues.getSchemaRegistryUrl();
-        
+
         abProducer = new AccountBalanceProducerImpl();
         abRetriever = new AccountBalanceRetrieverImpl();
-        NewAccountBalanceProvider newABprovider = new NewAccountBalanceProvider(); 
-        
+        NewAccountBalanceProvider newABprovider = new NewAccountBalanceProvider();
+
         TransferProcessorImpl transferProcessor = new TransferProcessorImpl();
         transferProcessor.setAccountBalanceProducer(abProducer);
         transferProcessor.setAccountBalanceRetriever(abRetriever);
         transferProcessor.setNewABprovider(newABprovider);
-        
-        transferConsumer = new TransferConsumer(bootstrapServers, 
+
+        transferConsumer = new TransferConsumer(bootstrapServers,
                 schemaRegistryUrl, transferProcessor);
-        
+
         log.info("Going to start the {}", AccountBalanceRetriever.class.getSimpleName());
         abRetriever.start(bootstrapServers, schemaRegistryUrl);
-        
+
         log.info("Going to start the {}", AccountBalanceProducer.class.getSimpleName());
         abProducer.start(bootstrapServers, schemaRegistryUrl);
-        
+
         pollingThread = Thread.currentThread();
-        
+
         log.info("Going to start the {}", TransferConsumer.class.getSimpleName());
         transferConsumer.start();
     }
-    
+
     @Override
     public void stop() {
         log.info("We have been told to stop.");
-        
+
         if (transferConsumer != null) {
             log.info("Going to stop the \"Transfer\" consumer");
             transferConsumer.stop();
         }
-        
+
         if (abProducer != null) {
             log.info("Going to stop the \"AccountBalance\" producer");
             abProducer.stop();
         }
-        
+
         if (abRetriever != null) {
             log.info("Going to stop the \"AccountBalance\" retriever "
                     + "(and the local queryable data store)");
             abRetriever.stop();
         }
-        
+
         if (pollingThread != null) {
             try{
                 pollingThread.join();

@@ -31,67 +31,67 @@ import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
  */
 public class ReadValueExampleMain{
     private static final Logger log = LoggerFactory.getLogger(ReadValueExampleMain.class);
-    
+
     public static void main(String[] args){
         new ReadValueExampleMain().run();
     }
-    
+
     private void run(){
         final Properties streamsConfigProperties = new Properties();
         streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG, "clients-store-subservice");
         streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         streamsConfigProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        
+
         KeyValueBytesStoreSupplier clientsStoreSupplier = Stores.inMemoryKeyValueStore("clients-store");
-        
+
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Client> clientAvroSerde = new SpecificAvroSerde<>();
-        
+
         final boolean isKeySerde = false;
         clientAvroSerde.configure(
                 Collections.singletonMap(
-                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, 
+                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
                         "http://localhost:8081"),
                 isKeySerde);
 
-        StreamsBuilder builder = new StreamsBuilder(); 
-        
+        StreamsBuilder builder = new StreamsBuilder();
+
         KTable<String,Client> clientsKTable = builder.table(
                 "clients", // The topic name
                 Materialized.<String,Client>as(clientsStoreSupplier)
                         .withKeySerde(stringSerde)
                         .withValueSerde(clientAvroSerde)
                         .withCachingDisabled());
-        
+
         KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfigProperties);
         streams.setUncaughtExceptionHandler(new ExceptionHandler());
         streams.start();
-        
+
         try{
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         log.info("clientsKTable.queryableStoreName(): {}", clientsKTable.queryableStoreName());
-        
-        ReadOnlyKeyValueStore<String, Client> clientsStore = streams.store(clientsKTable.queryableStoreName(), 
+
+        ReadOnlyKeyValueStore<String, Client> clientsStore = streams.store(clientsKTable.queryableStoreName(),
                 QueryableStoreTypes.<String, Client>keyValueStore());
-        
+
         String clientId = "cf0c7b1fc443";
         Client client = clientsStore.get(clientId);
-        
+
         log.info("Client retrieved from the local store and also from the topic: {}", client);
-        
+
         try{
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         log.info("Going to close the \"streams\"");
         streams.close();
-        
+
         log.info("Exiting");
     }
 }

@@ -17,14 +17,14 @@ import net.devaction.kafka.transfersrecordingservice.config.ConfigValues;
  */
 public class ClientProducerTester{
     private static final Logger log = LoggerFactory.getLogger(ClientProducerTester.class);
-    
+
     public static void main(final String[] args) {
         new ClientProducerTester().run();
     }
-    
+
     private void run() {
         ClientProducer clientProducer = new ClientProducer();
-        
+
         ConfigValues configValues;
         try{
             configValues = new ConfigReader().read();
@@ -32,10 +32,10 @@ public class ClientProducerTester{
             log.error("Unable to read the configuration values, exiting");
             return;
         }
-        
-        clientProducer.start(configValues.getBootstrapServers(), 
+
+        clientProducer.start(configValues.getBootstrapServers(),
                 configValues.getSchemaRegistryUrl());
-        
+
         ClientEntity clientEntity = new ClientEntity();
         clientEntity.generateId();
         clientEntity.setFirstName("Jessica");
@@ -43,16 +43,16 @@ public class ClientProducerTester{
         clientEntity.setEmail("j.andrew@gmx.com");
         clientEntity.setAddress("Purple Street 29");
         clientEntity.setLevel("bronze");
-        
+
         clientProducer.send(clientEntity);
-        
+
         log.info("Sleeping while the message is sent");
         try{
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException ex){
             log.error(ex.toString(), ex);
         }
-        
-        clientProducer.stop();        
+
+        clientProducer.stop();
     }
 }

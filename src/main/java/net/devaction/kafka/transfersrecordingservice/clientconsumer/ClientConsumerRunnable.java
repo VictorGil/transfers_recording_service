@@ -11,12 +11,12 @@ import org.slf4j.LoggerFactory;
 public class ClientConsumerRunnable implements Runnable{
     private static final Logger log = LoggerFactory.getLogger(ClientConsumerRunnable.class);
 
-    private final ClientConsumer consumer; 
-    
+    private final ClientConsumer consumer;
+
     public ClientConsumerRunnable(ClientConsumer consumer) {
         this.consumer = consumer;
     }
-    
+
     @Override
     public void run() {
         log.info("Going to start the \"Client\" consumer: {}", consumer);

@@ -8,6 +8,6 @@ package net.devaction.kafka.transfersrecordingservice.main;
 public interface TransfersRecordingService{
 
     public void start();
-    
+
     public void stop();
 }

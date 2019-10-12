@@ -16,10 +16,10 @@ public class SimpleTransferProcessorImpl implements TransferProcessor{
 
     @Override
     public void process(Transfer transfer){
-        log.info("Transfer data processed: {}", 
-                TransferConverter.convertToPojo(transfer));        
+        log.info("Transfer data processed: {}",
+                TransferConverter.convertToPojo(transfer));
     }
-    
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

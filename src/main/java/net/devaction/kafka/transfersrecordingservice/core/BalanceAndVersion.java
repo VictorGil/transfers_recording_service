@@ -11,7 +11,7 @@ public class BalanceAndVersion{
 
     private final BigDecimal balance;
     private final long version;
-    
+
     public BalanceAndVersion(BigDecimal balance, long version){
         this.balance = balance;
         this.version = version;
@@ -26,10 +26,10 @@ public class BalanceAndVersion{
     public int hashCode(){
         final int prime = 31;
         int result = 1;
-        
+
         result = prime * result + ((balance == null) ? 0 : balance.hashCode());
         result = prime * result + (int) (version ^ (version >>> 32));
-        
+
         return result;
     }
 
@@ -37,15 +37,15 @@ public class BalanceAndVersion{
     public boolean equals(Object obj){
         if (this == obj)
             return true;
-        
+
         if (obj == null)
             return false;
-        
+
         if (getClass() != obj.getClass())
             return false;
-        
+
         BalanceAndVersion other = (BalanceAndVersion) obj;
-        
+
         if (balance == null){
             if (other.balance != null)
                 return false;
@@ -54,7 +54,7 @@ public class BalanceAndVersion{
             // the same numeric value
         } else if (balance.compareTo(other.balance) != 0)
             return false;
-        
+
         return version == other.version;
     }
 
@@ -64,5 +64,5 @@ public class BalanceAndVersion{
 
     public long getVersion(){
         return version;
-    }    
+    }
 }

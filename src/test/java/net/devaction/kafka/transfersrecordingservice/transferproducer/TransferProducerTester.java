@@ -21,8 +21,8 @@ public class TransferProducerTester{
     public static void main(String[] args){
         new TransferProducerTester().run();
     }
-    
-    private void run() {        
+
+    private void run() {
         ConfigValues configValues;
         try{
             configValues = new ConfigReader().read();
@@ -30,23 +30,23 @@ public class TransferProducerTester{
             log.error("Unable to read the configuration values, exiting");
             return;
         }
-        
+
         TransferProducer transferProducer = new TransferProducer();
-        transferProducer.start(configValues.getBootstrapServers(), 
+        transferProducer.start(configValues.getBootstrapServers(),
                 configValues.getSchemaRegistryUrl());
-        
-        TransferEntity transferEntity = new TransferEntity("28a090daa001", 
+
+        TransferEntity transferEntity = new TransferEntity("28a090daa001",
                 new BigDecimal("30.75"));
 
         transferProducer.send(transferEntity);
-        
+
         log.info("Sleeping while the message is sent");
         try{
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException ex){
             log.error(ex.toString(), ex);
         }
-        
-        transferProducer.stop();        
+
+        transferProducer.stop();
     }
 }

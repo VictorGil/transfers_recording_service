@@ -20,6 +20,6 @@ public class TestProducerCallBack implements Callback{
             log.error("Record metadata: {}", metadata);
         } else{
             log.debug("Record metadata: {}", metadata);
-        }        
+        }
     }
 }

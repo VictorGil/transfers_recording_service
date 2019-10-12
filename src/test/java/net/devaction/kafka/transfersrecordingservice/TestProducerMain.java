@@ -26,8 +26,8 @@ import net.devaction.kafka.avro.util.ClientConverter;
  */
 public class TestProducerMain{
     private static final Logger log = LoggerFactory.getLogger(TestProducerMain.class);
-    
-    
+
+
     public static void main(final String[] args) {
         final Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -44,26 +44,26 @@ public class TestProducerMain{
         clientEntity.setEmail("j.jackson@gmx.com");
         clientEntity.setAddress("Orange Street 22");
         clientEntity.setLevel("bronze");
-        
+
         log.info("Going to send/produce/publish the following \"client\" data: {}", clientEntity);
-        
+
         Client client = ClientConverter.convertToAvro(clientEntity);
-                
+
         KafkaProducer<String, Client> producer = new KafkaProducer<String, Client>(props);
-        
-        final ProducerRecord<String, Client> record = 
-                new ProducerRecord<String, Client>("clients", client.getId(), 
+
+        final ProducerRecord<String, Client> record =
+                new ProducerRecord<String, Client>("clients", client.getId(),
                         client);
-        
+
         producer.send(record, new TestProducerCallBack());
-        
+
         log.info("Sleeping while the message is sent");
         try{
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException ex){
             log.error(ex.toString(), ex);
         }
-        
+
         producer.close();
     }
 }

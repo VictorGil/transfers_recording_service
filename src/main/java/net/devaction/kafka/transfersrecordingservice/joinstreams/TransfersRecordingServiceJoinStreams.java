@@ -36,44 +36,44 @@ import net.devaction.kafka.transfersrecordingservice.main.TransfersRecordingServ
  *
  * since August 2019
  */
-public class TransfersRecordingServiceJoinStreams 
+public class TransfersRecordingServiceJoinStreams
         implements TransfersRecordingService{
-    
+
     private static final Logger log = LoggerFactory.getLogger(
             TransfersRecordingServiceJoinStreams.class);
 
     private KafkaStreams streams;
-    
+
     private static final String ACCOUNT_BALANCES_TOPIC = "account-balances";
-    
+
     private static final String TRANSFERS_TOPIC = "transfers";
-    
+
     @Override
     public void start() {
         final ConfigValues configValues = readConfig();
-        
-        final Properties streamsConfigProperties = 
-                createStreamsConfigProperties(configValues.getBootstrapServers());        
-       
+
+        final Properties streamsConfigProperties =
+                createStreamsConfigProperties(configValues.getBootstrapServers());
+
         final Serde<String> stringSerde = Serdes.String();
-        
-        final StreamsBuilder builder = new StreamsBuilder(); 
-        
-        final KStream<String, Transfer> transfersKStream = 
-                createInputKStream(stringSerde, configValues.getSchemaRegistryUrl(), 
+
+        final StreamsBuilder builder = new StreamsBuilder();
+
+        final KStream<String, Transfer> transfersKStream =
+                createInputKStream(stringSerde, configValues.getSchemaRegistryUrl(),
                 builder);
 
-        final Serde<AccountBalance> accountBalanceSerde = 
-                createAccountBalanceSerde(configValues.getSchemaRegistryUrl());        
-        
-        final KTable<String,AccountBalance> accountBalancesKTable = 
+        final Serde<AccountBalance> accountBalanceSerde =
+                createAccountBalanceSerde(configValues.getSchemaRegistryUrl());
+
+        final KTable<String,AccountBalance> accountBalancesKTable =
                 createInputKTable(stringSerde, accountBalanceSerde, builder);
-        
+
         final KStream<String, AccountBalance> newABstream = transfersKStream.join(
                 accountBalancesKTable, new TransferAndAccountBalanceJoiner());
-        
+
         newABstream.to(ACCOUNT_BALANCES_TOPIC, Produced.with(stringSerde, accountBalanceSerde));
-        
+
         streams = new KafkaStreams(builder.build(), streamsConfigProperties);
         streams.setUncaughtExceptionHandler(new ExceptionHandler());
 
@@ -83,11 +83,11 @@ public class TransfersRecordingServiceJoinStreams
     @Override
     public void stop(){
         log.info("Going to close the \"Streams\"");
-        streams.close();        
+        streams.close();
     }
-    
+
     private void startStreams() {
-        streams.start();       
+        streams.start();
 
         while (streams.state() != State.RUNNING) {
             try{
@@ -97,13 +97,13 @@ public class TransfersRecordingServiceJoinStreams
                 Thread.currentThread().interrupt();
             }
         }
-        
-        log.info("\"Streams\" started");        
+
+        log.info("\"Streams\" started");
     }
-    
+
     private ConfigValues readConfig() {
         ConfigValues configValues = null;
-        
+
         log.info("Going to read the configuration values");
         try{
             configValues = new ConfigReader().read();
@@ -111,46 +111,46 @@ public class TransfersRecordingServiceJoinStreams
             log.error("Unable to read the configuration values, exiting", ex);
             System.exit(1);
         }
-        
+
         return configValues;
     }
-    
+
     private Properties createStreamsConfigProperties(String bootstrapServers) {
         final Properties streamsConfigProperties = new Properties();
-        
-        streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG, 
+
+        streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG,
                 "account-balance-streams-retriever");
-        
-        streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, 
+
+        streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,
                 bootstrapServers);
-        
+
         streamsConfigProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        
+
         return streamsConfigProperties;
     }
-    
-    private KStream<String, Transfer> createInputKStream(Serde<String> stringSerde, 
+
+    private KStream<String, Transfer> createInputKStream(Serde<String> stringSerde,
             String schemaRegistryUrl, StreamsBuilder builder) {
-        
+
         final boolean isKeySerde = false;
         final Serde<Transfer> transferSerde = new SpecificAvroSerde<>();
         transferSerde.configure(
                 Collections.singletonMap(
-                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, 
+                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
                         schemaRegistryUrl),
                 isKeySerde);
-        
-        return builder.stream(TRANSFERS_TOPIC,  
+
+        return builder.stream(TRANSFERS_TOPIC,
                 Consumed.with(stringSerde, transferSerde));
     }
-    
+
     private KTable<String,AccountBalance> createInputKTable(
             Serde<String> stringSerde, Serde<AccountBalance> accountBalanceSerde,
             StreamsBuilder builder){
-        
-        final KeyValueBytesStoreSupplier clientsStoreSupplier = 
+
+        final KeyValueBytesStoreSupplier clientsStoreSupplier =
                 Stores.inMemoryKeyValueStore("account-balance-store");
-        
+
         return builder.table(
                 ACCOUNT_BALANCES_TOPIC,
                 Materialized.<String,AccountBalance>as(clientsStoreSupplier)
@@ -158,16 +158,16 @@ public class TransfersRecordingServiceJoinStreams
                         .withValueSerde(accountBalanceSerde)
                         .withCachingDisabled());
     }
-    
+
     private Serde<AccountBalance> createAccountBalanceSerde(String schemaRegistryUrl) {
         final Serde<AccountBalance> accountBalanceSerde = new SpecificAvroSerde<>();
         final boolean isKeySerde = false;
         accountBalanceSerde.configure(
                 Collections.singletonMap(
-                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, 
+                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
                         schemaRegistryUrl),
                 isKeySerde);
-        
+
         return accountBalanceSerde;
     }
 }

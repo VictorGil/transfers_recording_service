@@ -16,10 +16,10 @@ public class SimpleClientProcessorImpl implements ClientProcessor{
 
     @Override
     public void process(Client client){
-        log.info("Client data processed: {}", 
-                ClientConverter.convertToPojo(client));        
+        log.info("Client data processed: {}",
+                ClientConverter.convertToPojo(client));
     }
-    
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

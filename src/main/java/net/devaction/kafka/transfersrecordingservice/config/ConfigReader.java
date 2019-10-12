@@ -24,7 +24,7 @@ public class ConfigReader{
 
     // This file must be present in the classpath
     private static final String CONFIG_FILE = "/config.json";
-    
+
     public ConfigValues read() throws Exception {
         byte[] jsonBytes = null;
         log.debug("Going to read the configuration values from " + CONFIG_FILE);
@@ -42,7 +42,7 @@ public class ConfigReader{
         try {
             config = objectMapper.readValue(jsonBytes, ConfigValues.class);
         } catch (IOException ex) {
-            String errorMessage = "Error when trying to parse " + CONFIG_FILE + " file";            
+            String errorMessage = "Error when trying to parse " + CONFIG_FILE + " file";
             log.error(errorMessage, ex);
             throw ex;
         }
@@ -50,13 +50,13 @@ public class ConfigReader{
         log.info("Application configuration: {}", config);
         return config;
     }
-    
+
     private byte[] readBytesFromClasspath(String filename) throws URISyntaxException, IOException {
         URL url = this.getClass().getResource(filename);
         URI uri = url.toURI();
         Path path = Paths.get(uri);
         log.debug("Path to the file: {}", path);
-        
+
         return Files.readAllBytes(path);
     }
 }

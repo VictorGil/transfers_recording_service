@@ -16,36 +16,36 @@ public class TransferConsumerTester{
     public static void main(String[] args){
         new TransferConsumerTester().run();
     }
-    
+
     private void run(){
         log.info("Starting.");
-        
+
         TransferProcessor processor = new SimpleTransferProcessorImpl();
         TransferConsumer consumer = new TransferConsumer(
                 "localhost:9092", "http://localhost:8081", processor);
-        
+
         consumer.setSeekFromBeginningOn();
-        
+
         TransferConsumerRunnable runnable = new TransferConsumerRunnable(consumer);
-        
+
         Thread thread = new Thread(runnable);
         thread.setName("transfer-consumer-thread");
-        
+
         thread.start();
-        
+
         try{
             TimeUnit.SECONDS.sleep(60);
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         consumer.stop();
         try{
             thread.join();
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         log.info("Exiting");
     }
 }

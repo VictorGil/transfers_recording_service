@@ -10,9 +10,9 @@ import net.devaction.entity.AccountBalanceEntity;
 public interface AccountBalanceProducer{
 
     public void start(String bootstrapServers, String schemaRegistryUrl);
-    
+
     public void send(AccountBalanceEntity accountBalanceEntity);
-    
+
     public void stop();
 }
 

@@ -12,17 +12,17 @@ public class TransfersRecordingServiceRunnable implements Runnable{
     private static final Logger log = LoggerFactory.getLogger(TransfersRecordingServiceRunnable.class);
 
     private final TransfersRecordingService service;
-    
-    
+
+
     public TransfersRecordingServiceRunnable(TransfersRecordingService service){
         this.service = service;
     }
 
     @Override
     public void run(){
-        log.info("Going to start the {}", 
+        log.info("Going to start the {}",
                 service.getClass().getSimpleName());
-        
+
         service.start();
     }
 }

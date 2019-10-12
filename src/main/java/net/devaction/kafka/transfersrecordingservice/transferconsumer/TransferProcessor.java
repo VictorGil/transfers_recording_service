@@ -8,6 +8,6 @@ import net.devaction.kafka.avro.Transfer;
  * since August 2019
  */
 public interface TransferProcessor{
-    
+
     public void process(Transfer transfer);
 }

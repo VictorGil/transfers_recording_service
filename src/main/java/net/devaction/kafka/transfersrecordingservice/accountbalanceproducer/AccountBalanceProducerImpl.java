@@ -23,40 +23,40 @@ import net.devaction.kafka.transfersrecordingservice.callback.SimpleProducerCall
  */
 public class AccountBalanceProducerImpl implements AccountBalanceProducer{
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceProducerImpl.class);
-    
+
     private KafkaProducer<String, AccountBalance> producer;
-    
+
     private static final String ACCOUNT_BALANCES_TOPIC = "account-balances";
-    
-    private final SimpleProducerCallBack callBack = new SimpleProducerCallBack();    
-    
+
+    private final SimpleProducerCallBack callBack = new SimpleProducerCallBack();
+
     @Override
     public void start(String bootstrapServers, String schemaRegistryUrl){
         final Properties props = new Properties();
-        
+
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
         props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
-        
+
         producer = new KafkaProducer<String, AccountBalance>(props);
     }
-    
+
     @Override
     public void send(AccountBalanceEntity accountBalanceEntity){
-        log.info("Going to send/produce/publish the following account balance data: {}", 
+        log.info("Going to send/produce/publish the following account balance data: {}",
                 accountBalanceEntity);
         AccountBalance accountBalance = AccountBalanceConverter.convertToAvro(accountBalanceEntity);
-        
-        final ProducerRecord<String, AccountBalance> record = 
-                new ProducerRecord<String, AccountBalance>(ACCOUNT_BALANCES_TOPIC, accountBalance.getAccountId(), 
+
+        final ProducerRecord<String, AccountBalance> record =
+                new ProducerRecord<String, AccountBalance>(ACCOUNT_BALANCES_TOPIC, accountBalance.getAccountId(),
                 accountBalance);
-        
-        producer.send(record, callBack);        
-    }    
-    
+
+        producer.send(record, callBack);
+    }
+
     @Override
     public void stop(){
         if (producer != null)

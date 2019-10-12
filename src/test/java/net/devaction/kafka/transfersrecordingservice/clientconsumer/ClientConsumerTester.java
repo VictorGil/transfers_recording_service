@@ -16,36 +16,36 @@ public class ClientConsumerTester{
     public static void main(String[] args){
         new ClientConsumerTester().run();
     }
-    
+
     private void run(){
         log.info("Starting.");
-        
+
         ClientProcessor processor = new SimpleClientProcessorImpl();
         ClientConsumer consumer = new ClientConsumer(
                 "localhost:9092", "http://localhost:8081", processor);
-        
+
         consumer.setSeekFromBeginningOn();
-        
+
         ClientConsumerRunnable runnable = new ClientConsumerRunnable(consumer);
-        
+
         Thread thread = new Thread(runnable);
         thread.setName("client-consumer-thread");
-        
+
         thread.start();
-        
+
         try{
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         consumer.stop();
         try{
             thread.join();
         } catch (InterruptedException ex){
             log.error("{}", ex, ex);
         }
-        
+
         log.info("Exiting");
     }
 }

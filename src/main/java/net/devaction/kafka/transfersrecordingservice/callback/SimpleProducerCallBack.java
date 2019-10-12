@@ -20,7 +20,7 @@ public class SimpleProducerCallBack implements Callback{
             log.error("Record metadata: {}", metadata);
         } else{
             log.debug("Record metadata: {}", metadata);
-        }        
+        }
     }
 }
 

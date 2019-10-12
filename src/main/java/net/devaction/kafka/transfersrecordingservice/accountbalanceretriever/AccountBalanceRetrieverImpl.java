@@ -37,44 +37,44 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceRetrieverImpl.class);
 
     private ReadOnlyKeyValueStore<String, AccountBalance> store;
-    
+
     private KafkaStreams streams;
 
-    private static final String ACCOUNT_BALANCES_TOPIC = "account-balances"; 
-    
+    private static final String ACCOUNT_BALANCES_TOPIC = "account-balances";
+
     @Override
     public void start(String bootstrapServers, String schemaRegistryUrl) {
-        
+
         final Properties streamsConfigProperties = new Properties();
         streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG, "account-balance-retriever");
         streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         streamsConfigProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        
-        KeyValueBytesStoreSupplier accountBalanceStoreSupplier = 
+
+        KeyValueBytesStoreSupplier accountBalanceStoreSupplier =
                 Stores.inMemoryKeyValueStore("account-balance-store");
-        
+
         final Serde<String> stringSerde = Serdes.String();
         final Serde<AccountBalance> accountBalanceSerde = new SpecificAvroSerde<>();
-        
+
         final boolean isKeySerde = false;
         accountBalanceSerde.configure(
                 Collections.singletonMap(
-                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, 
+                        AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
                         schemaRegistryUrl),
                 isKeySerde);
 
-        StreamsBuilder builder = new StreamsBuilder(); 
-        
+        StreamsBuilder builder = new StreamsBuilder();
+
         KTable<String,AccountBalance> accountBalancesKTable = builder.table(
                 ACCOUNT_BALANCES_TOPIC,
                 Materialized.<String,AccountBalance>as(accountBalanceStoreSupplier)
                         .withKeySerde(stringSerde)
                         .withValueSerde(accountBalanceSerde)
                         .withCachingDisabled());
-        
+
         streams = new KafkaStreams(builder.build(), streamsConfigProperties);
         streams.setUncaughtExceptionHandler(new ExceptionHandler());
-        streams.start();       
+        streams.start();
 
         while (streams.state() != State.RUNNING) {
             try{
@@ -84,24 +84,24 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
                 Thread.currentThread().interrupt();
             }
         }
-        
-        store = streams.store(accountBalancesKTable.queryableStoreName(), 
-                QueryableStoreTypes.<String,AccountBalance>keyValueStore());                
+
+        store = streams.store(accountBalancesKTable.queryableStoreName(),
+                QueryableStoreTypes.<String,AccountBalance>keyValueStore());
     }
-    
+
     @Override
     public AccountBalanceEntity retrieve(String accountId){
 
         AccountBalance accountBalance = store.get(accountId);
-        
+
         if (accountBalance == null) {
             log.error("The account with id {} has not been set up", accountId);
             return null;
         }
-        
+
         return AccountBalanceConverter.convertToPojo(accountBalance);
     }
-    
+
     @Override
     public void stop() {
         log.info("We have been told to stop, closing the \"Streams\"");
