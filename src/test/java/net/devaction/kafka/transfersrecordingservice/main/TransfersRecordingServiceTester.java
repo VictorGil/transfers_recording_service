@@ -30,18 +30,21 @@ public class TransfersRecordingServiceTester {
     public static void main(String[] args) {
         Action action = Action.SEND_TRANSFERS;
 
-        if (args.length > 0 && args[0].equalsIgnoreCase(Action.INITIALIZE.name()))
+        if (args.length > 0 && args[0].equalsIgnoreCase(Action.INITIALIZE.name())) {
             action = Action.INITIALIZE;
+        }
 
         new TransfersRecordingServiceTester().run(action);
     }
 
     private void run(Action action) {
-        if (action == Action.INITIALIZE)
+        if (action == Action.INITIALIZE) {
             initializeAccounts();
+        }
 
-        if (action == Action.SEND_TRANSFERS)
+        if (action == Action.SEND_TRANSFERS) {
             sendTransfers();
+        }
     }
 
     private void initializeAccounts() {
@@ -202,4 +205,4 @@ public class TransfersRecordingServiceTester {
     }
 }
 
-enum Action {INITIALIZE, SEND_TRANSFERS}
+enum Action { INITIALIZE, SEND_TRANSFERS }

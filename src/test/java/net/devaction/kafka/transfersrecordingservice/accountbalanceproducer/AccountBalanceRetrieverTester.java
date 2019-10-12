@@ -28,8 +28,9 @@ public class AccountBalanceRetrieverTester {
 
         retriever.start(BOOTSTRAP_SERVERS, SCHEMA_REGISTRY_URL);
 
-        for (int i = 0; i < accountIds.length; i++)
+        for (int i = 0; i < accountIds.length; i++) {
             printAccountBalance(accountIds[i]);
+        }
 
         retriever.stop();
     }

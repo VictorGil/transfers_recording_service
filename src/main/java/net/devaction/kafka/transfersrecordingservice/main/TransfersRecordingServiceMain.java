@@ -35,11 +35,11 @@ public class TransfersRecordingServiceMain implements SignalHandler {
     private void run(Implementation implementation) {
         registerThisAsOsSignalHandler();
 
-        if (implementation == Implementation.POLLING)
+        if (implementation == Implementation.POLLING) {
             service = new TransfersRecordingServicePolling();
-        else
+        } else {
             service = new TransfersRecordingServiceJoinStreams();
-
+        }
 
         TransfersRecordingServiceRunnable runnable =
                 new TransfersRecordingServiceRunnable(service);
@@ -69,7 +69,7 @@ public class TransfersRecordingServiceMain implements SignalHandler {
         log.debug("Going to register this object to handle the {} signal", WINCH_SIGNAL);
         try {
             Signal.handle(new Signal(WINCH_SIGNAL), this);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             // Most likely this is a signal that's not supported on this
             // platform or with the JVM as it is currently configured
             log.error("FATAL: The signal is not supported: {}, exiting", WINCH_SIGNAL, ex);
@@ -78,4 +78,4 @@ public class TransfersRecordingServiceMain implements SignalHandler {
     }
 }
 
-enum Implementation {POLLING, JOIN}
+enum Implementation { POLLING, JOIN }

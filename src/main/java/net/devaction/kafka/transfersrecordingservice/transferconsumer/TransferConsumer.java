@@ -85,8 +85,9 @@ public class TransferConsumer {
         ConsumerRecords<String, Transfer> records =
                 consumer.poll(Duration.ofMillis(100));
 
-        if (!records.isEmpty())
+        if (!records.isEmpty()) {
             log.debug("Number of \"Transfer\" records polled: {}", records.count());
+        }
 
         for (ConsumerRecord<String, Transfer> record: records) {
             processor.process(record.value());
@@ -94,8 +95,9 @@ public class TransferConsumer {
     }
 
     private void seekFromBeginningIfRequired() {
-        if (seekFromBeginning)
+        if (seekFromBeginning) {
             seekFromBeginning();
+        }
     }
 
     private void seekFromBeginning() {

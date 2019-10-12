@@ -35,8 +35,9 @@ public class TransferProcessorImpl implements TransferProcessor {
         AccountBalanceEntity currentAB = accountBalanceRetriever.retrieve(
                 transferEntity.getAccountId());
 
-        if (currentAB == null)
+        if (currentAB == null) {
             return;
+        }
 
         AccountBalanceEntity newAB = newABprovider.provide(currentAB, transferEntity);
 

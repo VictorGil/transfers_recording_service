@@ -89,8 +89,9 @@ public class ClientConsumer {
         ConsumerRecords<String, Client> records =
                 consumer.poll(Duration.ofMillis(100));
 
-        if (!records.isEmpty())
+        if (!records.isEmpty()) {
             log.debug("Number of \"Client\" records polled: {}", records.count());
+        }
 
         for (ConsumerRecord<String, Client> record: records) {
             processor.process(record.value());
@@ -99,8 +100,9 @@ public class ClientConsumer {
     }
 
     private void seekFromBeginningIfRequired() {
-        if (seekFromBeginning)
+        if (seekFromBeginning) {
             seekFromBeginning();
+        }
     }
 
     private void seekFromBeginning() {

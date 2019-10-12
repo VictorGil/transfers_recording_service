@@ -35,25 +35,30 @@ public class BalanceAndVersion {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (obj == null)
+        if (obj == null) {
             return false;
+        }
 
-        if (getClass() != obj.getClass())
+        if (getClass() != obj.getClass()) {
             return false;
+        }
 
         BalanceAndVersion other = (BalanceAndVersion) obj;
 
         if (balance == null) {
-            if (other.balance != null)
+            if (other.balance != null) {
                 return false;
+            }
             // Note that we should not use "equals" method
             // to find out whether two BigDecimals represent
             // the same numeric value
-        } else if (balance.compareTo(other.balance) != 0)
+        } else if (balance.compareTo(other.balance) != 0) {
             return false;
+        }
 
         return version == other.version;
     }
