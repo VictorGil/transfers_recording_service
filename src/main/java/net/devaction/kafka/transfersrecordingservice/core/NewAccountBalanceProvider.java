@@ -10,7 +10,7 @@ import net.devaction.entity.TransferEntity;
  *
  * since August 2019
  */
-public class NewAccountBalanceProvider{
+public class NewAccountBalanceProvider {
 
     public AccountBalanceEntity provide(AccountBalanceEntity currentAB,
             TransferEntity transferEntity) {
@@ -25,7 +25,7 @@ public class NewAccountBalanceProvider{
 
     public AccountBalanceEntity provide(String accountId, String clientId,
             BalanceAndVersion currentBalanceAndVersion, String transferId,
-            BigDecimal transferAmount){
+            BigDecimal transferAmount) {
 
         AccountBalanceEntity entity = new AccountBalanceEntity();
         entity.setAccountId(accountId);

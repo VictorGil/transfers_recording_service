@@ -31,9 +31,9 @@ public class TransfersRecordingServicePolling implements TransfersRecordingServi
     public void start() {
         ConfigValues configValues;
         log.info("Going to read the configuration values");
-        try{
+        try {
             configValues = new ConfigReader().read();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Unable to read the configuration values, exiting");
             return;
         }
@@ -86,9 +86,9 @@ public class TransfersRecordingServicePolling implements TransfersRecordingServi
         }
 
         if (pollingThread != null) {
-            try{
+            try {
                 pollingThread.join();
-            } catch (InterruptedException ex){
+            } catch (InterruptedException ex) {
                 log.error("Interrupted while waiting for the \"polling\" thread to finish", ex);
                 Thread.currentThread().interrupt();
             }

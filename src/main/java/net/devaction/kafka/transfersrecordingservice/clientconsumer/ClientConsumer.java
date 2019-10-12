@@ -27,7 +27,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
  *
  * since August 2019
  */
-public class ClientConsumer{
+public class ClientConsumer {
     private static final Logger log = LoggerFactory.getLogger(ClientConsumer.class);
 
     private Consumer<String, Client> consumer;
@@ -50,7 +50,7 @@ public class ClientConsumer{
         this.processor = processor;
     }
 
-    public void start(){
+    public void start() {
         final Properties props = new Properties();
 
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -67,18 +67,18 @@ public class ClientConsumer{
         consumer.subscribe(Collections.singletonList(TOPIC));
 
         List<PartitionInfo> partitionsInfo = consumer.partitionsFor(TOPIC);
-        log.info("Partitions for \"{}\" topic: {}", TOPIC, partitionsInfo);
+        log.info("Partitions for \" {}\" topic: {}", TOPIC, partitionsInfo);
 
         seekFromBeginningIfRequired();
 
         stop = false;
 
-        log.info("\"{}\" topic consumer started", TOPIC);
-        while (!stop){
+        log.info("\" {}\" topic consumer started", TOPIC);
+        while (!stop) {
             poll();
         }
 
-        log.info("Going to close the \"{}\" topic Kafka consumer.", TOPIC);
+        log.info("Going to close the \" {}\" topic Kafka consumer.", TOPIC);
         consumer.close();
     }
 
@@ -104,7 +104,7 @@ public class ClientConsumer{
     }
 
     private void seekFromBeginning() {
-        while (consumer.assignment().isEmpty()){
+        while (consumer.assignment().isEmpty()) {
             log.trace("Going to perform a dummy poll");
             consumer.poll(Duration.ofMillis(100));
         }
@@ -122,7 +122,7 @@ public class ClientConsumer{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "ClientConsumer [processor=" + processor + ", bootstrapServers=" + bootstrapServers + ", schemaRegistryUrl="
                 + schemaRegistryUrl + ", stop=" + stop + ", seekFromBeginning=" + seekFromBeginning + "]";
     }

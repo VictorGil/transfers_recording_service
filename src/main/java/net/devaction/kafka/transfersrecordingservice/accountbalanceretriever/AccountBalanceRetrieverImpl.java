@@ -33,7 +33,7 @@ import org.apache.kafka.streams.KafkaStreams.State;
  *
  * since August 2019
  */
-public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
+public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever {
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceRetrieverImpl.class);
 
     private ReadOnlyKeyValueStore<String, AccountBalance> store;
@@ -77,9 +77,9 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
         streams.start();
 
         while (streams.state() != State.RUNNING) {
-            try{
+            try {
                 TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException ex){
+            } catch (InterruptedException ex) {
                 log.error("Interrupted while waiting for the \"Streams\" to start.", ex);
                 Thread.currentThread().interrupt();
             }
@@ -90,7 +90,7 @@ public class AccountBalanceRetrieverImpl implements AccountBalanceRetriever{
     }
 
     @Override
-    public AccountBalanceEntity retrieve(String accountId){
+    public AccountBalanceEntity retrieve(String accountId) {
 
         AccountBalance accountBalance = store.get(accountId);
 

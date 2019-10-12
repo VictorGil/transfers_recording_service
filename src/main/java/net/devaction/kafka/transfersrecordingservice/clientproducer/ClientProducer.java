@@ -22,7 +22,7 @@ import net.devaction.kafka.transfersrecordingservice.callback.SimpleProducerCall
  *
  * since August 2019
  */
-public class ClientProducer{
+public class ClientProducer {
     private static final Logger log = LoggerFactory.getLogger(ClientProducer.class);
 
     private KafkaProducer<String, Client> producer;
@@ -31,7 +31,7 @@ public class ClientProducer{
 
     private final SimpleProducerCallBack callBack = new SimpleProducerCallBack();
 
-    public void start(String bootstrapServers, String schemaRegistryUrl){
+    public void start(String bootstrapServers, String schemaRegistryUrl) {
         final Properties props = new Properties();
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -44,7 +44,7 @@ public class ClientProducer{
         producer = new KafkaProducer<String, Client>(props);
     }
 
-    public void send(ClientEntity clientEntity){
+    public void send(ClientEntity clientEntity) {
         log.info("Going to send/produce/publish the following client data: {}", clientEntity);
         Client client = ClientConverter.convertToAvro(clientEntity);
 
@@ -54,7 +54,7 @@ public class ClientProducer{
         producer.send(record, callBack);
     }
 
-    public void stop(){
+    public void stop() {
         producer.close();
     }
 }

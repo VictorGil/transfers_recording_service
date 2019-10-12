@@ -7,23 +7,23 @@ import java.math.BigDecimal;
  *
  * since August 2019
  */
-public class BalanceAndVersion{
+public class BalanceAndVersion {
 
     private final BigDecimal balance;
     private final long version;
 
-    public BalanceAndVersion(BigDecimal balance, long version){
+    public BalanceAndVersion(BigDecimal balance, long version) {
         this.balance = balance;
         this.version = version;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "BalanceAndVersion [balance=" + balance + ", version=" + version + "]";
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
 
@@ -34,7 +34,7 @@ public class BalanceAndVersion{
     }
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
 
@@ -46,7 +46,7 @@ public class BalanceAndVersion{
 
         BalanceAndVersion other = (BalanceAndVersion) obj;
 
-        if (balance == null){
+        if (balance == null) {
             if (other.balance != null)
                 return false;
             // Note that we should not use "equals" method
@@ -58,11 +58,11 @@ public class BalanceAndVersion{
         return version == other.version;
     }
 
-    public BigDecimal getBalance(){
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public long getVersion(){
+    public long getVersion() {
         return version;
     }
 }

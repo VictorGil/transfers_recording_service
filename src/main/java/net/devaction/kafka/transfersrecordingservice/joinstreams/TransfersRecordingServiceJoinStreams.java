@@ -37,7 +37,7 @@ import net.devaction.kafka.transfersrecordingservice.main.TransfersRecordingServ
  * since August 2019
  */
 public class TransfersRecordingServiceJoinStreams
-        implements TransfersRecordingService{
+        implements TransfersRecordingService {
 
     private static final Logger log = LoggerFactory.getLogger(
             TransfersRecordingServiceJoinStreams.class);
@@ -81,7 +81,7 @@ public class TransfersRecordingServiceJoinStreams
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         log.info("Going to close the \"Streams\"");
         streams.close();
     }
@@ -90,9 +90,9 @@ public class TransfersRecordingServiceJoinStreams
         streams.start();
 
         while (streams.state() != State.RUNNING) {
-            try{
+            try {
                 TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException ex){
+            } catch (InterruptedException ex) {
                 log.error("Interrupted while waiting for the \"Streams\" to start.", ex);
                 Thread.currentThread().interrupt();
             }
@@ -105,9 +105,9 @@ public class TransfersRecordingServiceJoinStreams
         ConfigValues configValues = null;
 
         log.info("Going to read the configuration values");
-        try{
+        try {
             configValues = new ConfigReader().read();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Unable to read the configuration values, exiting", ex);
             System.exit(1);
         }
@@ -146,7 +146,7 @@ public class TransfersRecordingServiceJoinStreams
 
     private KTable<String,AccountBalance> createInputKTable(
             Serde<String> stringSerde, Serde<AccountBalance> accountBalanceSerde,
-            StreamsBuilder builder){
+            StreamsBuilder builder) {
 
         final KeyValueBytesStoreSupplier clientsStoreSupplier =
                 Stores.inMemoryKeyValueStore("account-balance-store");

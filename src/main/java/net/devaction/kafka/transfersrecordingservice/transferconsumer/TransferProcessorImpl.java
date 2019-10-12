@@ -16,7 +16,7 @@ import net.devaction.kafka.transfersrecordingservice.core.NewAccountBalanceProvi
  *
  * since August 2019
  */
-public class TransferProcessorImpl implements TransferProcessor{
+public class TransferProcessorImpl implements TransferProcessor {
     private static final Logger log = LoggerFactory.getLogger(TransferProcessorImpl.class);
 
     private AccountBalanceRetriever accountBalanceRetriever;
@@ -24,14 +24,14 @@ public class TransferProcessorImpl implements TransferProcessor{
     private AccountBalanceProducer accountBalanceProducer;
 
     @Override
-    public void process(Transfer transfer){
+    public void process(Transfer transfer) {
         TransferEntity entity = TransferConverter.convertToPojo(transfer);
         log.debug("Transfer data to be processed: {}", entity);
 
         process(entity);
     }
 
-    void process(TransferEntity transferEntity){
+    void process(TransferEntity transferEntity) {
         AccountBalanceEntity currentAB = accountBalanceRetriever.retrieve(
                 transferEntity.getAccountId());
 
@@ -48,15 +48,15 @@ public class TransferProcessorImpl implements TransferProcessor{
         return this.getClass().getSimpleName();
     }
 
-    public void setAccountBalanceRetriever(AccountBalanceRetriever accountBalanceRetriever){
+    public void setAccountBalanceRetriever(AccountBalanceRetriever accountBalanceRetriever) {
         this.accountBalanceRetriever = accountBalanceRetriever;
     }
 
-    public void setNewABprovider(NewAccountBalanceProvider newABprovider){
+    public void setNewABprovider(NewAccountBalanceProvider newABprovider) {
         this.newABprovider = newABprovider;
     }
 
-    public void setAccountBalanceProducer(AccountBalanceProducer accountBalanceProducer){
+    public void setAccountBalanceProducer(AccountBalanceProducer accountBalanceProducer) {
         this.accountBalanceProducer = accountBalanceProducer;
     }
 }

@@ -10,15 +10,15 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class SimpleProducerCallBack implements Callback{
+public class SimpleProducerCallBack implements Callback {
     private static final Logger log = LoggerFactory.getLogger(SimpleProducerCallBack.class);
 
     @Override
-    public void onCompletion(final RecordMetadata metadata, final Exception exception){
+    public void onCompletion(final RecordMetadata metadata, final Exception exception) {
         if (exception != null) {
-            log.error("{}", exception,  exception);
+            log.error(" {}", exception,  exception);
             log.error("Record metadata: {}", metadata);
-        } else{
+        } else {
             log.debug("Record metadata: {}", metadata);
         }
     }

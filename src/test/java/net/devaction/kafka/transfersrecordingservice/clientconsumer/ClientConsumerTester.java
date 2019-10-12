@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class ClientConsumerTester{
+public class ClientConsumerTester {
     private static final Logger log = LoggerFactory.getLogger(ClientConsumerTester.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new ClientConsumerTester().run();
     }
 
-    private void run(){
+    private void run() {
         log.info("Starting.");
 
         ClientProcessor processor = new SimpleClientProcessorImpl();
@@ -33,17 +33,17 @@ public class ClientConsumerTester{
 
         thread.start();
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         consumer.stop();
-        try{
+        try {
             thread.join();
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         log.info("Exiting");

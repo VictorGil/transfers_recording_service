@@ -7,7 +7,7 @@ import net.devaction.kafka.avro.Client;
  *
  * since August 2019
  */
-public interface ClientProcessor{
+public interface ClientProcessor {
 
     public void process(Client client);
 }

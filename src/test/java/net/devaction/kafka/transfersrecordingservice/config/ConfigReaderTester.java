@@ -8,18 +8,18 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class ConfigReaderTester{
+public class ConfigReaderTester {
     private static final Logger log = LoggerFactory.getLogger(ConfigReaderTester.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new ConfigReaderTester().run();
     }
 
-    private void run(){
+    private void run() {
         ConfigValues configValues;
-        try{
+        try {
             configValues = new ConfigReader().read();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error when trying to read the config values, exiting");
             return;
         }

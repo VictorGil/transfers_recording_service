@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class TransferConsumerTester{
+public class TransferConsumerTester {
     private static final Logger log = LoggerFactory.getLogger(TransferConsumerTester.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new TransferConsumerTester().run();
     }
 
-    private void run(){
+    private void run() {
         log.info("Starting.");
 
         TransferProcessor processor = new SimpleTransferProcessorImpl();
@@ -33,17 +33,17 @@ public class TransferConsumerTester{
 
         thread.start();
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(60);
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         consumer.stop();
-        try{
+        try {
             thread.join();
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         log.info("Exiting");

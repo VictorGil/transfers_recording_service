@@ -49,9 +49,9 @@ public class TransfersRecordingServiceMain implements SignalHandler {
 
         pollingThread.start();
 
-        try{
+        try {
             pollingThread.join();
-        } catch (InterruptedException ex){
+        } catch (InterruptedException ex) {
             log.error("Interrupted while waiting for the \"polling\" thread to finish", ex);
             Thread.currentThread().interrupt();
         }
@@ -60,16 +60,16 @@ public class TransfersRecordingServiceMain implements SignalHandler {
     }
 
     @Override
-    public void handle(Signal signal){
+    public void handle(Signal signal) {
         log.info("We have received the signal to tell us to stop: {}", signal.getName());
         service.stop();
     }
 
     private void registerThisAsOsSignalHandler() {
         log.debug("Going to register this object to handle the {} signal", WINCH_SIGNAL);
-        try{
+        try {
             Signal.handle(new Signal(WINCH_SIGNAL), this);
-        } catch(Exception ex){
+        } catch(Exception ex) {
             // Most likely this is a signal that's not supported on this
             // platform or with the JVM as it is currently configured
             log.error("FATAL: The signal is not supported: {}, exiting", WINCH_SIGNAL, ex);
@@ -78,4 +78,4 @@ public class TransfersRecordingServiceMain implements SignalHandler {
     }
 }
 
-enum Implementation{POLLING, JOIN}
+enum Implementation {POLLING, JOIN}

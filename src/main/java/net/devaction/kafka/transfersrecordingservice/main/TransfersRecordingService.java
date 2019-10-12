@@ -5,7 +5,7 @@ package net.devaction.kafka.transfersrecordingservice.main;
  *
  * since August 2019
  */
-public interface TransfersRecordingService{
+public interface TransfersRecordingService {
 
     public void start();
 

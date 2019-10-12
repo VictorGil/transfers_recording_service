@@ -18,26 +18,26 @@ import net.devaction.kafka.transfersrecordingservice.core.NewAccountBalanceProvi
  * since August 2019
  */
 public class TransferAndAccountBalanceJoiner implements
-        ValueJoiner<Transfer, AccountBalance, AccountBalance>{
+        ValueJoiner<Transfer, AccountBalance, AccountBalance> {
 
     private static final Logger log = LoggerFactory.getLogger(TransferAndAccountBalanceJoiner.class);
 
     private final NewAccountBalanceProvider newABprovider;
 
-    public TransferAndAccountBalanceJoiner(){
+    public TransferAndAccountBalanceJoiner() {
         newABprovider = new NewAccountBalanceProvider();
     }
 
     @Override
-    public AccountBalance apply(Transfer transfer, AccountBalance currentAB){
+    public AccountBalance apply(Transfer transfer, AccountBalance currentAB) {
 
-        TransferEntity tEntity = TransferConverter.convertToPojo(transfer);
-        log.debug("Transfer received for the join: {}", tEntity);
+        TransferEntity transferEntity = TransferConverter.convertToPojo(transfer);
+        log.debug("Transfer received for the join: {}", transferEntity);
 
         AccountBalanceEntity abEntity = AccountBalanceConverter.convertToPojo(currentAB);
         log.debug("\"AccountBalance\" retrieved from the local store for the join: {}", abEntity);
 
-        AccountBalanceEntity newABentity = newABprovider.provide(abEntity, tEntity);
+        AccountBalanceEntity newABentity = newABprovider.provide(abEntity, transferEntity);
         log.debug("New \"AccountBalance\": {}", newABentity);
 
         return AccountBalanceConverter.convertToAvro(newABentity);

@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  *
  * since August 2019
  */
-public class ConfigReader{
+public class ConfigReader {
     private static final Logger log = LoggerFactory.getLogger(ConfigReader.class);
 
     // This file must be present in the classpath

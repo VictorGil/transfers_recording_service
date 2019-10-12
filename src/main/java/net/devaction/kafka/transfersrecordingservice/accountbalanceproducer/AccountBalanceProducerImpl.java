@@ -21,7 +21,7 @@ import net.devaction.kafka.transfersrecordingservice.callback.SimpleProducerCall
  *
  * since August 2019
  */
-public class AccountBalanceProducerImpl implements AccountBalanceProducer{
+public class AccountBalanceProducerImpl implements AccountBalanceProducer {
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceProducerImpl.class);
 
     private KafkaProducer<String, AccountBalance> producer;
@@ -31,7 +31,7 @@ public class AccountBalanceProducerImpl implements AccountBalanceProducer{
     private final SimpleProducerCallBack callBack = new SimpleProducerCallBack();
 
     @Override
-    public void start(String bootstrapServers, String schemaRegistryUrl){
+    public void start(String bootstrapServers, String schemaRegistryUrl) {
         final Properties props = new Properties();
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -45,7 +45,7 @@ public class AccountBalanceProducerImpl implements AccountBalanceProducer{
     }
 
     @Override
-    public void send(AccountBalanceEntity accountBalanceEntity){
+    public void send(AccountBalanceEntity accountBalanceEntity) {
         log.info("Going to send/produce/publish the following account balance data: {}",
                 accountBalanceEntity);
         AccountBalance accountBalance = AccountBalanceConverter.convertToAvro(accountBalanceEntity);
@@ -58,7 +58,7 @@ public class AccountBalanceProducerImpl implements AccountBalanceProducer{
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         if (producer != null)
             producer.close();
     }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * since August 2019
  */
-public class ConfigValues{
+public class ConfigValues {
 
     @JsonProperty("bootstrap_servers")
     private String bootstrapServers;
@@ -16,23 +16,23 @@ public class ConfigValues{
     private String schemaRegistryUrl;
 
     @Override
-    public String toString(){
+    public String toString() {
         return "ConfigValues [bootstrapServers=" + bootstrapServers + ", schemaRegistryUrl=" + schemaRegistryUrl + "]";
     }
 
-    public String getBootstrapServers(){
+    public String getBootstrapServers() {
         return bootstrapServers;
     }
 
-    public void setBootstrapServers(String bootstrapServers){
+    public void setBootstrapServers(String bootstrapServers) {
         this.bootstrapServers = bootstrapServers;
     }
 
-    public String getSchemaRegistryUrl(){
+    public String getSchemaRegistryUrl() {
         return schemaRegistryUrl;
     }
 
-    public void setSchemaRegistryUrl(String schemaRegistryUrl){
+    public void setSchemaRegistryUrl(String schemaRegistryUrl) {
         this.schemaRegistryUrl = schemaRegistryUrl;
     }
 }

@@ -15,7 +15,7 @@ import net.devaction.kafka.transfersrecordingservice.config.ConfigValues;
  *
  * since August 2019
  */
-public class ClientProducerTester{
+public class ClientProducerTester {
     private static final Logger log = LoggerFactory.getLogger(ClientProducerTester.class);
 
     public static void main(final String[] args) {
@@ -26,9 +26,9 @@ public class ClientProducerTester{
         ClientProducer clientProducer = new ClientProducer();
 
         ConfigValues configValues;
-        try{
+        try {
             configValues = new ConfigReader().read();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Unable to read the configuration values, exiting");
             return;
         }
@@ -47,9 +47,9 @@ public class ClientProducerTester{
         clientProducer.send(clientEntity);
 
         log.info("Sleeping while the message is sent");
-        try{
+        try {
             TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException ex){
+        } catch (InterruptedException ex) {
             log.error(ex.toString(), ex);
         }
 

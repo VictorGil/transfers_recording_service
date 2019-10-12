@@ -25,7 +25,7 @@ import net.devaction.kafka.avro.Transfer;
  *
  * since August 2019
  */
-public class TransferConsumer{
+public class TransferConsumer {
     private static final Logger log = LoggerFactory.getLogger(TransferConsumer.class);
 
     private Consumer<String, Transfer> consumer;
@@ -41,7 +41,7 @@ public class TransferConsumer{
     private static final String TOPIC = "transfers";
 
     public TransferConsumer(String bootstrapServers, String schemaRegistryUrl,
-            TransferProcessor processor){
+            TransferProcessor processor) {
         this.bootstrapServers = bootstrapServers;
         this.schemaRegistryUrl = schemaRegistryUrl;
         this.processor = processor;
@@ -64,18 +64,18 @@ public class TransferConsumer{
         consumer.subscribe(Collections.singletonList(TOPIC));
 
         List<PartitionInfo> partitionsInfo = consumer.partitionsFor(TOPIC);
-        log.info("Partitions for \"{}\" topic: {}", TOPIC, partitionsInfo);
+        log.info("Partitions for \" {}\" topic: {}", TOPIC, partitionsInfo);
 
         seekFromBeginningIfRequired();
 
         stop = false;
 
-        log.info("\"{}\" topic consumer started", TOPIC);
-        while (!stop){
+        log.info("\" {}\" topic consumer started", TOPIC);
+        while (!stop) {
             poll();
         }
 
-        log.info("Going to close the \"{}\" topic Kafka consumer.", TOPIC);
+        log.info("Going to close the \" {}\" topic Kafka consumer.", TOPIC);
         consumer.close();
     }
 
@@ -99,7 +99,7 @@ public class TransferConsumer{
     }
 
     private void seekFromBeginning() {
-        while (consumer.assignment().isEmpty()){
+        while (consumer.assignment().isEmpty()) {
             log.trace("Going to perform a dummy poll");
             consumer.poll(Duration.ofMillis(100));
         }
@@ -117,7 +117,7 @@ public class TransferConsumer{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "TransferConsumer [processor=" + processor + ", bootstrapServers=" + bootstrapServers + ", schemaRegistryUrl="
                 + schemaRegistryUrl + ", stop=" + stop + ", seekFromBeginning=" + seekFromBeginning + "]";
     }

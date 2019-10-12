@@ -33,10 +33,10 @@ import net.devaction.kafka.streams.ExceptionHandler;
  *
  * since August 2019
  */
-public class JoinStreamsTesterMain{
+public class JoinStreamsTesterMain {
     private static final Logger log = LoggerFactory.getLogger(JoinStreamsTesterMain.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new JoinStreamsTesterMain().run();
     }
 
@@ -89,9 +89,9 @@ public class JoinStreamsTesterMain{
         streams.start();
 
         while (streams.state() != State.RUNNING) {
-            try{
+            try {
                 TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException ex){
+            } catch (InterruptedException ex) {
                 log.error("Interrupted while waiting for the \"Streams\" to start.");
                 Thread.currentThread().interrupt();
             }
@@ -99,10 +99,10 @@ public class JoinStreamsTesterMain{
 
         log.info("\"Streams\" started");
 
-        try{
+        try {
             TimeUnit.MINUTES.sleep(5);
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
             Thread.currentThread().interrupt();
         }
 

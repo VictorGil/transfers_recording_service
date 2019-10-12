@@ -19,7 +19,7 @@ import net.devaction.kafka.transfersrecordingservice.transferproducer.TransferPr
  *
  * since August 2019
  */
-public class TransfersRecordingServiceTester{
+public class TransfersRecordingServiceTester {
     private static final Logger log = LoggerFactory.getLogger(TransfersRecordingServiceTester.class);
 
     ConfigValues configValues;
@@ -65,9 +65,9 @@ public class TransfersRecordingServiceTester{
     }
 
     private void readConfigValues() {
-        try{
+        try {
             configValues = new ConfigReader().read();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Unable to read the configuration values, exiting");
             System.exit(1);
         }
@@ -194,12 +194,12 @@ public class TransfersRecordingServiceTester{
     }
 
     private void sleep(long millis) {
-        try{
+        try {
             TimeUnit.MILLISECONDS.sleep(millis);
-        } catch (InterruptedException ex){
+        } catch (InterruptedException ex) {
             log.error(ex.toString(), ex);
         }
     }
 }
 
-enum Action{INITIALIZE, SEND_TRANSFERS}
+enum Action {INITIALIZE, SEND_TRANSFERS}

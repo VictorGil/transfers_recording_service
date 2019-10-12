@@ -7,7 +7,7 @@ import net.devaction.entity.AccountBalanceEntity;
  *
  * since August 2019
  */
-public interface AccountBalanceRetriever{
+public interface AccountBalanceRetriever {
 
     public void start(String bootstrapServers, String schemaRegistryUrl);
 

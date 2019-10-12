@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class TransferConsumerRunnable implements Runnable{
+public class TransferConsumerRunnable implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(TransferConsumerRunnable.class);
 
     private final TransferConsumer consumer;
@@ -18,7 +18,7 @@ public class TransferConsumerRunnable implements Runnable{
     }
 
     @Override
-    public void run(){
+    public void run() {
         log.info("Going to start the \"Transfer\" consumer: {}", consumer);
         consumer.start();
     }

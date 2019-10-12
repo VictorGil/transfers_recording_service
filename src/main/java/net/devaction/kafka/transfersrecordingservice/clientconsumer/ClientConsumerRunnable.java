@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  * since August 2019
  */
-public class ClientConsumerRunnable implements Runnable{
+public class ClientConsumerRunnable implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ClientConsumerRunnable.class);
 
     private final ClientConsumer consumer;

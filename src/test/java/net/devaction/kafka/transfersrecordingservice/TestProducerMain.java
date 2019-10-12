@@ -24,7 +24,7 @@ import net.devaction.kafka.avro.util.ClientConverter;
  *
  * since August 2019
  */
-public class TestProducerMain{
+public class TestProducerMain {
     private static final Logger log = LoggerFactory.getLogger(TestProducerMain.class);
 
 
@@ -58,9 +58,9 @@ public class TestProducerMain{
         producer.send(record, new TestProducerCallBack());
 
         log.info("Sleeping while the message is sent");
-        try{
+        try {
             TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException ex){
+        } catch (InterruptedException ex) {
             log.error(ex.toString(), ex);
         }
 

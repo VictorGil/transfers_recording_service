@@ -29,14 +29,14 @@ import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
  *
  * since August 2019
  */
-public class ReadValueExampleMain{
+public class ReadValueExampleMain {
     private static final Logger log = LoggerFactory.getLogger(ReadValueExampleMain.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new ReadValueExampleMain().run();
     }
 
-    private void run(){
+    private void run() {
         final Properties streamsConfigProperties = new Properties();
         streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG, "clients-store-subservice");
         streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -67,10 +67,10 @@ public class ReadValueExampleMain{
         streams.setUncaughtExceptionHandler(new ExceptionHandler());
         streams.start();
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         log.info("clientsKTable.queryableStoreName(): {}", clientsKTable.queryableStoreName());
@@ -83,10 +83,10 @@ public class ReadValueExampleMain{
 
         log.info("Client retrieved from the local store and also from the topic: {}", client);
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException ex){
-            log.error("{}", ex, ex);
+        } catch (InterruptedException ex) {
+            log.error(" {}", ex, ex);
         }
 
         log.info("Going to close the \"streams\"");

@@ -11,7 +11,7 @@ import net.devaction.kafka.transfersrecordingservice.accountbalanceretriever.Acc
  *
  * since August 2019
  */
-public class AccountBalanceRetrieverTester{
+public class AccountBalanceRetrieverTester {
     private static final Logger log = LoggerFactory.getLogger(AccountBalanceRetrieverTester.class);
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
@@ -19,7 +19,7 @@ public class AccountBalanceRetrieverTester{
 
     private AccountBalanceRetriever retriever;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new AccountBalanceRetrieverTester().run(args);
     }
 

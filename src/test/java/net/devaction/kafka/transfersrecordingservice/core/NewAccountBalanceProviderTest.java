@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
  *
  * since August 2019
  */
-class NewAccountBalanceProviderTest{
+class NewAccountBalanceProviderTest {
 
     private NewAccountBalanceProvider provider = new NewAccountBalanceProvider();
 
     @Test
-    void testProvideNew(){
+    void testProvideNew() {
         BalanceAndVersion inputBV = new BalanceAndVersion(
                 new BigDecimal("21.47"), 36L);
 
