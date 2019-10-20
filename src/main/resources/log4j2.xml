@@ -15,10 +15,10 @@
 
         <Logger name="net.devaction" level="trace" additivity="true"/>
 
-        <Logger name="net.devaction.kafka.transfersrecordingservice.clientconsumer.ClientConsumer" 
+        <Logger name="net.devaction.kafka.transfersrecordingservice.clientconsumer.ClientConsumer"
                 level="debug" additivity="true"/>
 
-        <Logger name="net.devaction.kafka.transfersrecordingservice.transferconsumer.TransferConsumer" 
+        <Logger name="net.devaction.kafka.transfersrecordingservice.transferconsumer.TransferConsumer"
                 level="debug" additivity="true"/>
     </Loggers>
 </Configuration>
