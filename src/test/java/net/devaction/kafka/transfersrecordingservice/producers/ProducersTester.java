@@ -1,6 +1,7 @@
 package net.devaction.kafka.transfersrecordingservice.producers;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -51,8 +52,11 @@ public class ProducersTester {
         readConfigValues();
 
         startABproducer();
-        sendAccountBalances();
+
+        // sendAccountBalances();
         // sendAccountBalances2();
+        sendAccountBalances3();
+
         stopABproducer();
     }
 
@@ -102,6 +106,20 @@ public class ProducersTester {
         AccountBalanceEntity abEntity2 = new AccountBalanceEntity(
                 "28a090daa006", "334490daa006");
         abProducer.send(abEntity2);
+
+        sleep(500);
+    }
+
+    private void sendAccountBalances3() {
+        for (int i = 0; i < 10; i++) {
+            AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
+                    "acc-0" + i, generateRandomId());
+            abProducer.send(abEntity1);
+        }
+
+        AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
+                "acc-10", generateRandomId());
+        abProducer.send(abEntity1);
 
         sleep(500);
     }
@@ -202,6 +220,11 @@ public class ProducersTester {
         } catch (InterruptedException ex) {
             log.error(ex.toString(), ex);
         }
+    }
+
+    private String generateRandomId() {
+        // last 12 hexadecimal digits of the random UUID
+        return UUID.randomUUID().toString().substring(24);
     }
 }
 
