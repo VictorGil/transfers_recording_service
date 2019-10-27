@@ -19,8 +19,8 @@ import net.devaction.kafka.transfersrecordingservice.transferproducer.TransferPr
  *
  * since August 2019
  */
-public class TransfersRecordingServiceTester {
-    private static final Logger log = LoggerFactory.getLogger(TransfersRecordingServiceTester.class);
+public class ProducersTester {
+    private static final Logger log = LoggerFactory.getLogger(ProducersTester.class);
 
     ConfigValues configValues;
 
@@ -34,7 +34,7 @@ public class TransfersRecordingServiceTester {
             action = Action.INITIALIZE;
         }
 
-        new TransfersRecordingServiceTester().run(action);
+        new ProducersTester().run(action);
     }
 
     private void run(Action action) {
