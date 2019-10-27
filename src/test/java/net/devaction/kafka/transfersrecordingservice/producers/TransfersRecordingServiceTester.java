@@ -1,4 +1,4 @@
-package net.devaction.kafka.transfersrecordingservice.main;
+package net.devaction.kafka.transfersrecordingservice.producers;
 
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
