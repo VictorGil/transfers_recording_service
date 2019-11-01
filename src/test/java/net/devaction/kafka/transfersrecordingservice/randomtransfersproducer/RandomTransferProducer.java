@@ -16,7 +16,7 @@ import net.devaction.kafka.transfersrecordingservice.transferproducer.TransferPr
  *
  * since October 2019
  */
-public class RandomTransferProducer implements Runnable{
+public class RandomTransferProducer implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(RandomTransferProducer.class);
 
     private final Random random = new Random();
