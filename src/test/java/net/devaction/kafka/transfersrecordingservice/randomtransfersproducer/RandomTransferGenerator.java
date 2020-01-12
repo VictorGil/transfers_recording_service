@@ -24,8 +24,10 @@ public class RandomTransferGenerator {
     }
 
     private String generateAccountId() {
-        int low = 1;
-        int high = 10;
+        final int low = 1;
+
+        // final int high = 10;
+        final int high = 5;
 
         String auxDigit = "";
         // number between low (inclusive) and high (inclusive)

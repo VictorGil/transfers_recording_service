@@ -38,8 +38,11 @@ public class TransferProducerTester {
         // TransferEntity transferEntity = new TransferEntity("28a090daa002",
         //        new BigDecimal("-100.54"));
 
-        TransferEntity transferEntity = new TransferEntity("28a090daa001",
-                new BigDecimal("110.02"));
+        // We let everybody know that a new account needs to be created,
+        // by publishing a transaction with amount = zero.
+        TransferEntity transferEntity = new TransferEntity("account-01", BigDecimal.ZERO);
+
+        // TransferEntity transferEntity = new TransferEntity("account-03", BigDecimal.valueOf(20, 0));
 
         transferProducer.send(transferEntity);
 
