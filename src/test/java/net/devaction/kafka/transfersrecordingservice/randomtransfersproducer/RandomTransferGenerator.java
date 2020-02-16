@@ -3,9 +3,6 @@ package net.devaction.kafka.transfersrecordingservice.randomtransfersproducer;
 import java.math.BigDecimal;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.devaction.entity.TransferEntity;
 
 /**
@@ -14,7 +11,6 @@ import net.devaction.entity.TransferEntity;
  * since October 2019
  */
 public class RandomTransferGenerator {
-    private static final Logger log = LoggerFactory.getLogger(RandomTransferGenerator.class);
 
     private Random random = new Random();
 

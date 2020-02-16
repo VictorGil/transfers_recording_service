@@ -49,5 +49,3 @@ public class ClientConsumerTester {
         log.info("Exiting");
     }
 }
-
-

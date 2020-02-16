@@ -54,8 +54,8 @@ public class ProducersTester {
         startABproducer();
 
         // sendAccountBalances();
-        // sendAccountBalances2();
-        sendAccountBalances3();
+        sendInitialAccountBalances2();
+        // sendInitialAccountBalances3();
 
         stopABproducer();
     }
@@ -65,8 +65,11 @@ public class ProducersTester {
 
         startTransferProducer();
 
-        sendTransfers1();
+        // sendTransfers1();
         // sendTransfers2();
+
+        // sendInitialTransfers1();
+        sendTransfer1();
 
         stopTransferProducer();
     }
@@ -98,9 +101,9 @@ public class ProducersTester {
         sleep(500);
     }
 
-    private void sendAccountBalances2() {
+    private void sendInitialAccountBalances2() {
         AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
-                "28a090daa005", "334490daa005");
+                "acc-11", "334490daa005");
         abProducer.send(abEntity1);
 
         AccountBalanceEntity abEntity2 = new AccountBalanceEntity(
@@ -110,7 +113,7 @@ public class ProducersTester {
         sleep(500);
     }
 
-    private void sendAccountBalances3() {
+    private void sendInitialAccountBalances3() {
         for (int i = 0; i < 10; i++) {
             AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
                     "acc-0" + i, generateRandomId());
@@ -132,6 +135,20 @@ public class ProducersTester {
         transferProducer = new TransferProducer();
         transferProducer.start(configValues.getBootstrapServers(),
                 configValues.getSchemaRegistryUrl());
+    }
+
+    private void sendInitialTransfers1() {
+        // TransferEntity transferEntity1 = new TransferEntity("acc-01",
+        TransferEntity transferEntity1 = new TransferEntity("acc-02",
+                BigDecimal.ZERO);
+        transferProducer.send(transferEntity1);
+    }
+
+    private void sendTransfer1() {
+        // TransferEntity transferEntity1 = new TransferEntity("acc-01",
+        TransferEntity transferEntity1 = new TransferEntity("acc-02",
+                BigDecimal.ONE);
+        transferProducer.send(transferEntity1);
     }
 
     private void sendTransfers1() {

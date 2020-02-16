@@ -40,9 +40,12 @@ public class TransferProducerTester {
 
         // We let everybody know that a new account needs to be created,
         // by publishing a transaction with amount = zero.
-        TransferEntity transferEntity = new TransferEntity("account-01", BigDecimal.ZERO);
-
-        // TransferEntity transferEntity = new TransferEntity("account-03", BigDecimal.valueOf(20, 0));
+        // TransferEntity transferEntity = new TransferEntity("account-05", BigDecimal.ZERO);
+        // TransferEntity transferEntity = new TransferEntity("account-04", BigDecimal.ZERO);
+        // TransferEntity transferEntity = new TransferEntity("account-04", BigDecimal.valueOf(15, 1)); // 1.5
+        // TransferEntity transferEntity = new TransferEntity("account-04", BigDecimal.valueOf(2));
+        TransferEntity transferEntity = new TransferEntity("account-05", BigDecimal.valueOf(11));
+        // TransferEntity transferEntity = new TransferEntity("account-01", BigDecimal.valueOf(5));
 
         transferProducer.send(transferEntity);
 
