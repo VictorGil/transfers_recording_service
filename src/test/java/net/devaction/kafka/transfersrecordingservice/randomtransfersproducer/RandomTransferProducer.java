@@ -65,8 +65,8 @@ public class RandomTransferProducer implements Runnable {
     }
 
     private long getRandomMillis() {
-        int low = 10;
-        int high = 500;
+        int low = 400;
+        int high = 600;
         // number between 10 (inclusive) and 500 (inclusive)
         return random.nextInt(high + 1 - low) + low;
     }

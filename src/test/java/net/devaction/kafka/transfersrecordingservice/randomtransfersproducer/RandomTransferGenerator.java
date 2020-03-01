@@ -25,14 +25,16 @@ public class RandomTransferGenerator {
         // final int high = 10;
         final int high = 5;
 
-        String auxDigit = "";
+        String auxDigit = "2";
         // number between low (inclusive) and high (inclusive)
         int suffix = random.nextInt(high - low + 1) + low;
 
+        /*
         if (suffix < 10) {
             auxDigit = "0";
         }
-        return "acc-" + auxDigit + suffix;
+        */
+        return "account-" + auxDigit + suffix;
     }
 
     private BigDecimal generateAmount() {

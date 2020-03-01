@@ -70,6 +70,7 @@ public class ProducersTester {
 
         // sendInitialTransfers1();
         sendTransfer1();
+        // sendTransfers1();
 
         stopTransferProducer();
     }
@@ -103,11 +104,11 @@ public class ProducersTester {
 
     private void sendInitialAccountBalances2() {
         AccountBalanceEntity abEntity1 = new AccountBalanceEntity(
-                "acc-11", "334490daa005");
+                "account-11", "334490daa005");
         abProducer.send(abEntity1);
 
         AccountBalanceEntity abEntity2 = new AccountBalanceEntity(
-                "28a090daa006", "334490daa006");
+                "account-12", "334490daa006");
         abProducer.send(abEntity2);
 
         sleep(500);
@@ -138,55 +139,62 @@ public class ProducersTester {
     }
 
     private void sendInitialTransfers1() {
-        // TransferEntity transferEntity1 = new TransferEntity("acc-01",
-        TransferEntity transferEntity1 = new TransferEntity("acc-02",
+        TransferEntity transferEntity1 = new TransferEntity("account-21",
                 BigDecimal.ZERO);
         transferProducer.send(transferEntity1);
+
+        TransferEntity transferEntity2 = new TransferEntity("account-22",
+                BigDecimal.ZERO);
+        transferProducer.send(transferEntity2);
+
+        TransferEntity transferEntity3 = new TransferEntity("account-23",
+                BigDecimal.ZERO);
+        transferProducer.send(transferEntity3);
+
+        TransferEntity transferEntity4 = new TransferEntity("account-24",
+                BigDecimal.ZERO);
+        transferProducer.send(transferEntity4);
+
+        TransferEntity transferEntity5 = new TransferEntity("account-25",
+                BigDecimal.ZERO);
+        transferProducer.send(transferEntity5);
     }
 
     private void sendTransfer1() {
         // TransferEntity transferEntity1 = new TransferEntity("acc-01",
-        TransferEntity transferEntity1 = new TransferEntity("acc-02",
-                BigDecimal.ONE);
+        TransferEntity transferEntity1 = new TransferEntity("account-11",
+                BigDecimal.valueOf(354));
         transferProducer.send(transferEntity1);
     }
 
     private void sendTransfers1() {
-        TransferEntity transferEntity1 = new TransferEntity("28a090daa001",
+        TransferEntity transferEntity1 = new TransferEntity("account-21",
                 new BigDecimal("30.75"));
         transferProducer.send(transferEntity1);
 
-        TransferEntity transferEntity2 = new TransferEntity("28a090daa002",
+        TransferEntity transferEntity2 = new TransferEntity("account-22",
                 new BigDecimal("20"));
         transferProducer.send(transferEntity2);
 
-        sleep(300);
-
-        TransferEntity transferEntity3 = new TransferEntity("28a090daa001",
+        TransferEntity transferEntity3 = new TransferEntity("account-23",
                 new BigDecimal("5"));
         transferProducer.send(transferEntity3);
 
-        TransferEntity transferEntity4 = new TransferEntity("28a090daa002",
+        TransferEntity transferEntity4 = new TransferEntity("account-24",
                 new BigDecimal("-51.83"));
         transferProducer.send(transferEntity4);
 
-        sleep(200);
-
-        TransferEntity transferEntity5 = new TransferEntity("28a090daa001",
+        TransferEntity transferEntity5 = new TransferEntity("account-25",
                 new BigDecimal("-7.83"));
         transferProducer.send(transferEntity5);
 
-        TransferEntity transferEntity6 = new TransferEntity("28a090daa002",
+        TransferEntity transferEntity6 = new TransferEntity("account-22",
                 new BigDecimal("100"));
         transferProducer.send(transferEntity6);
 
-        sleep(200);
-
-        TransferEntity transferEntity7 = new TransferEntity("28a090daa001",
+        TransferEntity transferEntity7 = new TransferEntity("account-23",
                 new BigDecimal("11.00005"));
         transferProducer.send(transferEntity7);
-
-        sleep(100);
     }
 
     private void sendTransfers2() {
